@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	.hero-unit
+		h1= title
+	.form
+		form
+			label Username:
+			input(type="text", placeholder="Enter username...")
+			label Password:
+			input(type="password", placeholder="Enter password...")
+			br
+			a.btn.btn-success.btn-large LOGIN
+
+	script(type="text/javascript")
+		$(function(){
+			$('.btn').click(function(){
+				window.location.href = '/chat';
+			});
+		});

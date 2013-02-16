@@ -1,19 +1,29 @@
-// create the http server and listen on port
-var http = require('http');
-var app = http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('VLAB IS RUNNING...\n');
-}).listen(3000, 'localhost');
+// add the express framework
+var app = require('express')(),
+  server = require('http').createServer(app),
+      io = require('socket.io').listen(server),
+      routes = require('./routes');
 
+// Config
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
+
+app.get('/', routes.index);
+app.get('/chat', routes.chat);
+
+
+// create the http server and listen on port
+server.listen(3000);
 console.log('Server running at http://localhost:3000/');
 
+/*
+@================================================================================
+@= COMMMMMMENNNNNTTTT
+@================================================================================
+*/
 // create the peer server
 var PeerServer = require('peer').PeerServer;
 var server = new PeerServer({ port: 9000 });
-
-// create the socket server on the port
-var io = require('socket.io').listen(app);
-
 
 // This callback function is called every time a socket
 // tries to connect to the server

@@ -1,9 +1,17 @@
 extends layout
 
 block content
+	script(src='/socket.io/socket.io.js')
+	script(src='chat.js')
 	.row
 		.span6
-			h3 Some title
-			textarea
+			h3 Peer to Peer
+			strong Your ID: 
+			.well#id
+
+			input#peer
+			button.btn.btn-info#connect Connect To Peer
 		.span6
-			h3 Another title
+			h3 Your Video
+			video#myvideo(autoplay)
+			video#remotevideo(autoplay)

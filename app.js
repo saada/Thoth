@@ -11,25 +11,17 @@ app.set('views', __dirname + '/views');
 app.get('/', routes.index);
 app.get('/chat', routes.chat);
 
-
 // create the http server and listen on port
 server.listen(3000);
-console.log('Server running at http://localhost:3000/');
-
-/*
-@================================================================================
-@= COMMMMMMENNNNNTTTT
-@================================================================================
-*/
-// create the peer server
-var PeerServer = require('peer').PeerServer;
-var server = new PeerServer({ port: 9000 });
+console.log('Web server running on port 3000...');
 
 // This callback function is called every time a socket
 // tries to connect to the server
 io.sockets.on('connection', function(socket) {
-
+    console.log("ALL ROOMS:");
+    console.log(io.sockets.manager.rooms);
     console.log((new Date()) + ' Connection established.');
+    socket.broadcast.emit('news', { babe: 'babe' });
 
     // When a user send a SDP message
     // broadcast to all users in the room

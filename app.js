@@ -1,8 +1,10 @@
 // add the express framework
-var app = require('express')(),
+var express = require('express'),
+    app  = express(),
   server = require('http').createServer(app),
       io = require('socket.io').listen(server),
-      routes = require('./routes');
+  webRTC = require('webrtc.io'),
+  routes = require('./routes');
 
 // Config
 app.set('view engine', 'jade');
@@ -11,10 +13,15 @@ app.set('views', __dirname + '/views');
 app.get('/', routes.index);
 app.get('/chat', routes.chat);
 
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
 // create the http server and listen on port
 server.listen(3000);
-console.log('Web server running on port 3000...');
+console.log('Web server and socket.io running on port 3000...');
 
+webRTC.listen(4000);
+console.log('WebRTC server running on port 4000...');
 // This callback function is called every time a socket
 // tries to connect to the server
 io.sockets.on('connection', function(socket) {

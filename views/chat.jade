@@ -2,16 +2,17 @@ extends layout
 
 block content
 	script(src='/socket.io/socket.io.js')
+	script(src='/webrtc.io.js')
 	script(src='chat.js')
-	.row
-		.span6
-			h3 Peer to Peer
-			strong Your ID: 
-			.well#id
 
-			input#peer
-			button.btn.btn-info#connect Connect To Peer
-		.span6
-			h3 Your Video
-			video#myvideo(autoplay)
-			video#remotevideo(autoplay)
+	.row
+		.span12
+			h1 Video Conference Page
+			h3 Topics:
+			p#roominfo
+			button.room CSE430
+			button.room CSE464
+			button.room CSE598
+			.videos
+				video#myvideo(autoplay)
+				//- video#remotevideo(autoplay)

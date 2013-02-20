@@ -2,7 +2,7 @@
 var express = require('express'),
     app  = express(),
   server = require('http').createServer(app),
-      io = require('socket.io').listen(server),
+      // io = require('socket.io').listen(server),
   webRTC = require('webrtc.io'),
   routes = require('./routes');
 
@@ -17,32 +17,66 @@ app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
 // create the http server and listen on port
-server.listen(3000);
+// server.listen(80);
 console.log('Web server and socket.io running on port 3000...');
 
 webRTC.listen(4000);
 console.log('WebRTC server running on port 4000...');
 // This callback function is called every time a socket
 // tries to connect to the server
-io.sockets.on('connection', function(socket) {
-    console.log("ALL ROOMS:");
-    console.log(io.sockets.manager.rooms);
-    console.log((new Date()) + ' Connection established.');
-    socket.broadcast.emit('news', { babe: 'babe' });
+// io.sockets.on('connection', function(socket) {
+//     // console.log("ALL ROOMS:");
+//     // console.log(io.sockets.manager.rooms);
+//     console.log((new Date()) + ' Connection established.');
+//     console.log(socket);
 
-    // When a user send a SDP message
-    // broadcast to all users in the room
+//     // When a user send a SDP message
+//     // broadcast to all users in the room
+//     socket.on('message', function(message) {
+//         console.log((new Date()) + ' Received Message, broadcasting: ' + message);
+//         socket.broadcast.emit('message', message);
+//     });
+
+//     // When the user hangs up
+//     // broadcast bye signal to all users in the room
+//     socket.on('disconnect', function() {
+//         // close user connection
+//         console.log((new Date()) + " Peer disconnected.");
+//         socket.broadcast.emit('user disconnected');
+//     });
+
+// });
+
+
+/*
+@================================================================================
+@= WEBSOCK STUFF
+@================================================================================
+*/
+var websock = require('websock'),
+        net = require('net');
+
+
+var socket = net.createConnection("5901", "10.0.1.247");
+console.log('Socket created.');
+socket.on('data', function(data) {
+  // Log the response from the HTTP server.
+  console.log('RESPONSE: ' + data);
+}).on('connect', function() {
+  // Manually write an HTTP request.
+  socket.write("GET / HTTP/1.0\r\n\r\n");
+}).on('end', function() {
+  console.log('DONE');
+});
+
+// instead of 80 we could also parse a server to listen to
+websock.listen(80, function(socket) {
+    socket.on('open', function(){
+
+    });
+
     socket.on('message', function(message) {
-        console.log((new Date()) + ' Received Message, broadcasting: ' + message);
-        socket.broadcast.emit('message', message);
+        socket.send('echo: ' + message); // let's echo it
     });
-
-    // When the user hangs up
-    // broadcast bye signal to all users in the room
-    socket.on('disconnect', function() {
-        // close user connection
-        console.log((new Date()) + " Peer disconnected.");
-        socket.broadcast.emit('user disconnected');
-    });
-
+    socket.send('hello from server');
 });

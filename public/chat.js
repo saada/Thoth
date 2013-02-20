@@ -1,7 +1,53 @@
+/*
+@================================================================================
+@= SOCKET IO STUFF
+@================================================================================
+*/
+var socket = io.connect('http://localhost');
+socket.on('request_login', function () {
+	console.log("REQUEST LOGIN!");
+	socket.emit('', { my: 'data' });
+});
+
+$(function() {
+	
+});
+
+
+/*
+@================================================================================
+@= WEBRTC STUFF
+@================================================================================
+*/
 var _rtc = jQuery.extend(true, {}, rtc);
 var localstream = null;
 
 $(function(){
+	/*
+	@================================================================================
+	@= Capture frames from video into canvas (for VNC later)
+	@================================================================================
+	*/
+	// var canvas = document.getElementById('canvas');
+	// var ctx    = canvas.getContext('2d');
+	// var video  = document.getElementById('myvideo');
+
+	// video.addEventListener('play', function () {
+	// 	canvas.width = video.clientWidth;
+	// 	canvas.height = video.clientHeight;
+	// 	var _this = this; //cache
+	// 	(function loop() {
+	// 		if (!_this.paused && !_this.ended) {
+	// 			ctx.drawImage(_this, 0, 0);
+	// 			// This converts the image to base64 data. Unfortunately 
+	// 			// it slows down performance drastically.
+	// 			// canvas.toDataURL("image/png");
+	// 			setTimeout(loop, 1000 / 60); // drawing at 30fps
+	// 		}
+	// 	})();
+	// }, 0);
+
+	// Video Conferencing code
 	$('#myvideo').hide();
 	$('.room').click(function(e){
 		$('.remotevideo').remove();

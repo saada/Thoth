@@ -1,53 +1,3 @@
-// add the express framework
-var express = require('express'),
-    app  = express(),
-  server = require('http').createServer(app),
-      // io = require('socket.io').listen(server),
-  webRTC = require('webrtc.io'),
-  routes = require('./routes');
-
-// Config
-app.set('view engine', 'jade');
-app.set('views', __dirname + '/views');
-
-app.get('/', routes.index);
-app.get('/chat', routes.chat);
-
-app.use(app.router);
-app.use(express.static(__dirname + '/public'));
-
-// create the http server and listen on port
-// server.listen(80);
-console.log('Web server and socket.io running on port 3000...');
-
-webRTC.listen(4000);
-console.log('WebRTC server running on port 4000...');
-// This callback function is called every time a socket
-// tries to connect to the server
-// io.sockets.on('connection', function(socket) {
-//     // console.log("ALL ROOMS:");
-//     // console.log(io.sockets.manager.rooms);
-//     console.log((new Date()) + ' Connection established.');
-//     console.log(socket);
-
-//     // When a user send a SDP message
-//     // broadcast to all users in the room
-//     socket.on('message', function(message) {
-//         console.log((new Date()) + ' Received Message, broadcasting: ' + message);
-//         socket.broadcast.emit('message', message);
-//     });
-
-//     // When the user hangs up
-//     // broadcast bye signal to all users in the room
-//     socket.on('disconnect', function() {
-//         // close user connection
-//         console.log((new Date()) + " Peer disconnected.");
-//         socket.broadcast.emit('user disconnected');
-//     });
-
-// });
-
-
 /*
 @================================================================================
 @= WEBSOCK STUFF
@@ -55,28 +5,31 @@ console.log('WebRTC server running on port 4000...');
 */
 var websock = require('websock'),
         net = require('net');
-
-
-var socket = net.createConnection("5901", "10.0.1.247");
-console.log('Socket created.');
-socket.on('data', function(data) {
-  // Log the response from the HTTP server.
-  console.log('RESPONSE: ' + data);
-}).on('connect', function() {
-  // Manually write an HTTP request.
-  socket.write("GET / HTTP/1.0\r\n\r\n");
-}).on('end', function() {
-  console.log('DONE');
-});
-
 // instead of 80 we could also parse a server to listen to
 websock.listen(80, function(socket) {
-    socket.on('open', function(){
-
-    });
-
+    var vncSocket = net.createConnection("5901", "10.0.1.247");
+    vncSocket.on('data', function(data) {
+          //console.log('RECV FROM VNC:' + data);
+          //console.log('SEND TO CLIENT:' + new Buffer(data).toString('base64'));
+          //console.log(data);
+          //console.log(data.length + ":" + data.toString('base64').length + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+          var sendData = data.toString('base64');
+          if (sendData.length > 65535) {
+            var bufLen = Math.floor(data.length / 2);
+            var buf = data.slice(0, bufLen);
+            socket.send(buf.toString('base64'));
+            var buf2 = data.slice(bufLen, data.length);
+            socket.send(buf2.toString('base64'));
+          } else {
+            socket.send(sendData);
+          }
+        }).on('connect', function() {
+        }).on('end', function() {
+          console.log('END');
+        });
     socket.on('message', function(message) {
-        socket.send('echo: ' + message); // let's echo it
+        //console.log('RECV FROM CLIENT:' + message);
+        vncSocket.write(new Buffer(message, 'base64'));
+        //console.log('SEND TO VNC:' + new Buffer(message, 'base64'));
     });
-    socket.send('hello from server');
 });

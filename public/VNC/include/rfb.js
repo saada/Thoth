@@ -230,9 +230,20 @@ function constructor() {
     ws = new Websock();
     ws.on('message', handle_message);
     ws.on('open', function() {
-        if (rfb_state === "connect") {
-            updateState('ProtocolVersion', "Starting VNC handshake");
-        } else {
+        if(rfb_state === "auth") {
+            var sessionId = WebUtil.readCookie('connect.sess', '');
+            var sess_arr = [];
+            for(i = 0; i<sessionId.length; i++)
+            {
+                sess_arr.push8(sessionId.charCodeAt(i));
+            }
+            console.log(sess_arr);
+            ws.send(sess_arr);
+        }
+        // else if (rfb_state === "connect") {
+        //     updateState('ProtocolVersion', "Starting VNC handshake");
+        // } 
+        else {
             fail("Got unexpected WebSockets connection");
         }
     });
@@ -392,7 +403,7 @@ updateState = function(state, statusMsg) {
      * These are disconnected states. A previous connect may
      * asynchronously cause a connection so make sure we are closed.
      */
-    if (state in {'disconnected':1, 'loaded':1, 'connect':1,
+    if (state in {'disconnected':1, 'loaded':1, 'auth':1,
                   'disconnect':1, 'failed':1, 'fatal':1}) {
         if (sendTimer) {
             clearInterval(sendTimer);
@@ -459,16 +470,16 @@ updateState = function(state, statusMsg) {
 
         break;
 
-
-    case 'connect':
-        
+    case 'auth':
         connTimer = setTimeout(function () {
                 fail("Connect timeout");
             }, conf.connectTimeout * 1000);
 
         init_vars();
         connect();
-
+        break;
+    case 'connect':
+        
         // WebSocket.onopen transitions to 'ProtocolVersion'
         break;
 
@@ -535,6 +546,20 @@ handle_message = function() {
     case 'disconnected':
     case 'failed':
         Util.Error("Got data while disconnected");
+        break;
+    case 'auth':
+        var authResult = ws.rQshift8();
+        if(authResult == 0)
+        {
+            Util.Debug("You are fucked!");
+            updateState('failed');
+        }
+        else if(authResult == 1)
+        {
+            Util.Debug("You are NOT fucked!");
+            updateState('ProtocolVersion', "Starting VNC handshake");
+            init_msg();
+        }
         break;
     case 'normal':
         if (normal_msg() && ws.rQlen() > 0) {

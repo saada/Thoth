@@ -29,7 +29,11 @@ websock.listen(80, function(socket) {
         });
     socket.on('message', function(message) {
         //console.log('RECV FROM CLIENT:' + message);
-        vncSocket.write(new Buffer(message, 'base64'));
-        //console.log('SEND TO VNC:' + new Buffer(message, 'base64'));
+        var buf = new Buffer(message, 'base64');
+        var firstByte = buf[0];
+        if (firstByte != 4 && firstByte != 5 && firstByte != 6) {
+          vncSocket.write(buf);
+          //console.log('SEND TO VNC:' + new Buffer(message, 'base64'));
+        }
     });
 });

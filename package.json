@@ -9,6 +9,7 @@
     "peer":"*",
     "jade":"*",
     "webrtc.io":"*",
-    "websock":"*"
+    "websock":"*",
+    "connect":"*"
   }
 }

@@ -31,6 +31,12 @@ $(function(){
 	// 	})();
 	// }, 0);
 
+	$('#logoutBtn').click(function(e) {
+		$.get('/logout', function(data, textStatus, xhr) {
+			window.location.href = data;
+		});
+	});
+
 	// Video Conferencing code
 	$('.room').click(function(e){
 		$('.remotevideo').remove();

@@ -16,18 +16,26 @@ var express = require('express'),
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 
-app.get('/', routes.index);
-app.get('/chat', routes.chat);
-
-app.use(app.router);
+app.use(require('connect').bodyParser());
 app.use(express.static(__dirname + '/public'));
+app.use(express.cookieParser('Moody is bad coder!'));
+app.use(express.cookieSession());
+app.use(app.router);
+
+app.get('/', routes.index);
+app.get('/chat', checkAuth, routes.chat);
+app.post('/login', routes.login);
+app.get('/logout', routes.logout);
+
+
+//app.use(express.bodyParser());
 
 // create the http server and listen on port
-server.listen(80);
-console.log('Web server and socket.io running on port 80...');
+server.listen(8000);
+console.log('Web server and socket.io running on port 8000...');
 
-webRTC.listen(4000);
-console.log('WebRTC server running on port 4000...');
+webRTC.listen(443);
+console.log('WebRTC server running on port 443...');
 
 /*
 @================================================================================
@@ -36,7 +44,7 @@ console.log('WebRTC server running on port 4000...');
 */
 var websock = require('websock'),
         net = require('net');
-// instead of 80 we could also parse a server to listen to
+console.log('websock running on port 80...');
 websock.listen(80, function(socket) {
     var vncSocket = net.createConnection("5901", "10.0.1.247");
     vncSocket.on('data', function(data) {
@@ -68,3 +76,17 @@ websock.listen(80, function(socket) {
         }
     });
 });
+
+/*
+@================================================================================
+@= CheckAuth function
+@================================================================================
+*/
+function checkAuth(req, res, next) {
+  if (!req.session.user_id) {
+    res.send('You are not authorized to view this page');
+  } else {
+    next();
+  }
+}
+

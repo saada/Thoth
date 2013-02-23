@@ -1,21 +1,5 @@
 /*
 @================================================================================
-@= SOCKET IO STUFF
-@================================================================================
-*/
-var socket = io.connect('http://localhost');
-socket.on('request_login', function () {
-	console.log("REQUEST LOGIN!");
-	socket.emit('', { my: 'data' });
-});
-
-$(function() {
-	
-});
-
-
-/*
-@================================================================================
 @= WEBRTC STUFF
 @================================================================================
 */
@@ -48,7 +32,6 @@ $(function(){
 	// }, 0);
 
 	// Video Conferencing code
-	$('#myvideo').hide();
 	$('.room').click(function(e){
 		$('.remotevideo').remove();
 		$('#roominfo').html('You are in room '+$(e.target).html());
@@ -58,7 +41,8 @@ $(function(){
 		}
 		// Clone new instance of rtc
 		rtc = jQuery.extend(true, {}, _rtc);
-		rtc.connect('ws://localhost:4000', $(e.target).html());
+		rtc.connect('ws://'+window.location.host+':4000', $(e.target).html());
+		console.log('Connecting via WebRTC to ws://'+window.location.host+':4000 in room: '+$(e.target).html());
 		
 		if(localstream === null)
 		{
@@ -66,13 +50,7 @@ $(function(){
 		}
 
 		rtc.on('ready',function(){
-			console.log("READY");
-
-			// Listen for socket closes
-			rtc._socket.onclose = function(event) {
-				console.log('Client notified socket has closed',event);
-				// $('#myvideo').attr('src','');
-			};
+			console.log("READY EVENT");
 		});
 		//on add remote stream
 		rtc.on('add remote stream',function(stream, id){
@@ -98,8 +76,31 @@ $(function(){
 var getLocalCamera = function(){
 	rtc.createStream({"video": true, "audio":true}, function(stream){
 		localstream = stream;
+		// Create video element
+		var div = $('.videos').prepend('<div class="video"></div>').children().first();
+		var vid = div.append('<video id="myvideo" autoplay src=""></video>');
+
+		// Attach stream
 		rtc.attachStream(localstream, 'myvideo');
+		// While no src defined, wait
+		// while(! $('#myvideo').prop('videoHeight') > 0)
+		// {
+		// }
+		setTimeout(function() {
+		  // body...
+		$('.video').css('max-height', $('#myvideo').prop('videoHeight'));
+		$('.video').css('min-height', $('#myvideo').prop('videoHeight')/3);
+		$('.video').css('max-width', $('#myvideo').prop('videoWidth'));
+		$('.video').css('min-width', $('#myvideo').prop('videoWidth')/3);
+		$('video').css('max-height', $('#myvideo').prop('videoHeight'));
+		$('video').css('min-height', $('#myvideo').prop('videoHeight')/3);
+		$('video').css('max-width', $('#myvideo').prop('videoWidth'));
+		$('video').css('min-width', $('#myvideo').prop('videoWidth')/3);
+		$(".video").draggable().resizable({aspectRatio:true});
 		$('#myvideo').show();
+		}, 2000)
+
+
 	});
 };
 

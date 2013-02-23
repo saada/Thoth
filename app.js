@@ -1,5 +1,36 @@
 /*
 @================================================================================
+@= WEBSERVER STUFF
+@================================================================================
+*/
+
+// add the express framework
+var express = require('express'),
+    app  = express(),
+  server = require('http').createServer(app),
+      // io = require('socket.io').listen(server),
+  webRTC = require('webrtc.io'),
+  routes = require('./routes');
+
+// Config
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
+
+app.get('/', routes.index);
+app.get('/chat', routes.chat);
+
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
+// create the http server and listen on port
+server.listen(80);
+console.log('Web server and socket.io running on port 80...');
+
+webRTC.listen(4000);
+console.log('WebRTC server running on port 4000...');
+
+/*
+@================================================================================
 @= WEBSOCK STUFF
 @================================================================================
 */

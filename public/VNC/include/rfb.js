@@ -232,13 +232,23 @@ function constructor() {
     ws.on('open', function() {
         if(rfb_state === "auth") {
             var sessionId = WebUtil.readCookie('connect.sess', '');
-            var sess_arr = [];
-            for(i = 0; i<sessionId.length; i++)
+            // var sess_arr = [];
+            // for(i = 0; i<sessionId.length; i++)
+            // {
+            //     sess_arr.push8(sessionId.charCodeAt(i));
+            // }
+            // console.log(sess_arr);
+            // ws.send(sess_arr);
+            if(sessionId)   //If not blank
             {
-                sess_arr.push8(sessionId.charCodeAt(i));
+                ws.send_string(sessionId);
+                updateState('ProtocolVersion', "Starting VNC handshake");
             }
-            console.log(sess_arr);
-            ws.send(sess_arr);
+            else 
+            {
+                ws.send_string("0");
+                updateState('failed', "You sucker!");
+            }
         }
         // else if (rfb_state === "connect") {
         //     updateState('ProtocolVersion', "Starting VNC handshake");
@@ -548,7 +558,7 @@ handle_message = function() {
         Util.Error("Got data while disconnected");
         break;
     case 'auth':
-        var authResult = ws.rQshift8();
+        var authResult = ws.rQshift16();
         if(authResult == 0)
         {
             Util.Debug("You are fucked!");
@@ -558,7 +568,7 @@ handle_message = function() {
         {
             Util.Debug("You are NOT fucked!");
             updateState('ProtocolVersion', "Starting VNC handshake");
-            init_msg();
+            //init_msg();
         }
         break;
     case 'normal':
@@ -1815,7 +1825,8 @@ that.connect = function(host, port, password, path) {
         return fail("Must set host and port");
     }
 
-    updateState('connect');
+    // updateState('connect');
+    updateState('auth','Connecting to server...');
     //Util.Debug("<< connect");
 
 };

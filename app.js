@@ -34,7 +34,7 @@ app.get('/logout', routes.logout);
 server.listen(8000);
 console.log('Web server and socket.io running on port 8000...');
 
-webRTC.listen(5000);
+webRTC.listen(4000);
 console.log('WebRTC server running on port 443...');
 
 /*

@@ -47,8 +47,8 @@ $(function(){
 		}
 		// Clone new instance of rtc
 		rtc = jQuery.extend(true, {}, _rtc);
-		rtc.connect('ws://'+window.location.host+':4000', $(e.target).html());
-		console.log('Connecting via WebRTC to ws://'+window.location.host+':4000 in room: '+$(e.target).html());
+		rtc.connect('ws://'+window.location.host.split(':')[0]+':4000', $(e.target).html());
+		console.log('Connecting via WebRTC to ws://'+window.location.host.split(':')[0]+':4000 in room: '+$(e.target).html());
 		
 		if(localstream === null)
 		{
@@ -61,8 +61,22 @@ $(function(){
 		//on add remote stream
 		rtc.on('add remote stream',function(stream, id){
 			console.log('add remote stream');
-			$('.videos').append('<video id='+id+' class="remotevideo" autoplay></video>');
+			var div = $('.videos').prepend('<div class="video"></div>').children().first();
+			div.append('<video id='+id+' class="remotevideo" autoplay></video>');
 			rtc.attachStream(stream, id);
+			console.log('the id is: ' + id);
+			setTimeout(function() {
+				$('.video').css('max-height', $('#'+id).prop('videoHeight'));
+				$('.video').css('min-height', $('#'+id).prop('videoHeight')/3);
+				$('.video').css('max-width', $('#'+id).prop('videoWidth'));
+				$('.video').css('min-width', $('#'+id).prop('videoWidth')/3);
+				$('#'+id).css('max-height', $('#'+id).prop('videoHeight'));
+				$('#'+id).css('min-height', $('#'+id).prop('videoHeight')/3);
+				$('#'+id).css('max-width', $('#'+id).prop('videoWidth'));
+				$('#'+id).css('min-width', $('#'+id).prop('videoWidth')/3);
+				$(".video").draggable().resizable({aspectRatio:true});
+				$('#'+id).show();
+			}, 1000)
 		});
 		// close_stream
 		rtc.on('close_stream',function(data){
@@ -72,7 +86,7 @@ $(function(){
 		rtc.on('remove_peer_connected', function(data) {
 			console.log('peer disconnected! socketId:'+data.socketId);
 			// remove video element
-			$('#'+data.socketId).remove();
+			$('#'+data.socketId).parent().remove();
 		});
 
 		
@@ -93,7 +107,6 @@ var getLocalCamera = function(){
 		// {
 		// }
 		setTimeout(function() {
-		  // body...
 		$('.video').css('max-height', $('#myvideo').prop('videoHeight'));
 		$('.video').css('min-height', $('#myvideo').prop('videoHeight')/3);
 		$('.video').css('max-width', $('#myvideo').prop('videoWidth'));
@@ -104,7 +117,7 @@ var getLocalCamera = function(){
 		$('video').css('min-width', $('#myvideo').prop('videoWidth')/3);
 		$(".video").draggable().resizable({aspectRatio:true});
 		$('#myvideo').show();
-		}, 2000)
+		}, 1000)
 
 
 	});

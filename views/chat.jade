@@ -2,7 +2,7 @@ extends layout
 
 block content
 	.row
-		.span12
+		.span4
 			h1 Video Conference Page
 			h3 Topics:
 			button.btn.btn-inverse#logoutBtn Logout
@@ -14,8 +14,11 @@ block content
 			.videos
 				//- .video
 				//- 	video#myvideo(autoplay)
-				canvas#canvas 
+				//- canvas#canvas 
 				//- video#remotevideo(autoplay)
+		.span8
+			.centerStream
+				h1(style="text-align:center;line-height:350px;") CENTER VIDEO
 
 	script(src='/webrtc.io.js')
 	script(src='chat.js')

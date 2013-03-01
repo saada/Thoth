@@ -13,9 +13,9 @@ $(function(){
 	@================================================================================
 	*/
 
-	$('video').click(function(e) {
-		id = $(e.target).attr('id');
-		setCenterCanvas(id);
+	$('video,canvas').click(function(e) {
+		// id = $(e.target).attr('id');
+		// setCenterCanvas(id);
 	});
 
 	function setCenterCanvas(id)
@@ -71,8 +71,17 @@ $(function(){
 		//on add remote stream
 		rtc.on('add remote stream',function(stream, id){
 			console.log('add remote stream');
-			var div = $('.videos').prepend('<div class="video"></div>').children().first();
-			div.append('<video id='+id+' class="remotevideo" autoplay></video>');
+			var div = $('.videos').prepend('<div class="video row"></div>').children().first();
+			var vid = div.append('<video id='+id+' class="remotevideo" autoplay></video>').children().first();
+			vid.click(function(){
+				$('.centerStream').html(
+					$(this).clone()
+						.css('max-height','inherit')
+						.css('min-height','inherit')
+						.css('max-width','inherit')
+						.css('min-width','inherit')
+				);
+			});
 			rtc.attachStream(stream, id);
 			console.log('new remote stream id is: ' + id);
 			setTimeout(function() {
@@ -107,9 +116,17 @@ var getLocalCamera = function(){
 	rtc.createStream({"video": true, "audio":true}, function(stream){
 		localstream = stream;
 		// Create video element
-		var div = $('.videos').prepend('<div class="video"></div>').children().first();
-		var vid = div.append('<video id="myvideo" autoplay src=""></video>');
-
+		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
+		var vid = div.append('<video id="myvideo" autoplay src=""></video>').children().first();
+		vid.click(function(){
+			$('.centerStream').html(
+				$(this).clone()
+					.css('max-height','inherit')
+					.css('min-height','inherit')
+					.css('max-width','inherit')
+					.css('min-width','inherit')
+			);
+		});
 		// Attach stream
 		rtc.attachStream(localstream, 'myvideo');
 		// While no src defined, wait
@@ -117,17 +134,17 @@ var getLocalCamera = function(){
 		// {
 		// }
 		setTimeout(function() {
-		$('.video').css('max-height', $('#myvideo').prop('videoHeight'));
+		$('.video').css('max-height', $('#myvideo').prop('videoHeight')/3);
 		$('.video').css('min-height', $('#myvideo').prop('videoHeight')/3);
-		$('.video').css('max-width', $('#myvideo').prop('videoWidth'));
+		$('.video').css('max-width', $('#myvideo').prop('videoWidth')/3);
 		$('.video').css('min-width', $('#myvideo').prop('videoWidth')/3);
-		$('video').css('max-height', $('#myvideo').prop('videoHeight'));
-		$('video').css('min-height', $('#myvideo').prop('videoHeight')/3);
-		$('video').css('max-width', $('#myvideo').prop('videoWidth'));
-		$('video').css('min-width', $('#myvideo').prop('videoWidth')/3);
+		$('#myvideo').css('max-height', $('#myvideo').prop('videoHeight')/3);
+		$('#myvideo').css('min-height', $('#myvideo').prop('videoHeight')/3);
+		$('#myvideo').css('max-width', $('#myvideo').prop('videoWidth')/3);
+		$('#myvideo').css('min-width', $('#myvideo').prop('videoWidth')/3);
 		$(".video").draggable().resizable({aspectRatio:true});
 		$('#myvideo').show();
-		}, 1000)
+		}, 200)
 
 
 	});

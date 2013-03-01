@@ -23,7 +23,7 @@ exports.index = function (req, res) {
 };
 
 exports.bad = function (req, res){
-	res.render('404', {title: '404'});
+	res.render('404', {title: '404', status: 404});
 };
 
 function sendResponse(res, data) {

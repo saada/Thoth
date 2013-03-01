@@ -5,24 +5,26 @@
 */
 
 // CONSTANTS
-var HTTPSERVER_PORT = 8000;
-var WEBRTC_PORT = 4000;
-var WEBSOCKET_PORT = 80;
+var   HTTP_PORT = 8000,
+    WEBRTC_PORT = 4000,
+ WEBSOCKET_PORT = 80;
 
 /**
  * Module dependencies.
  */
 var express = require('express'),
-    app  = express(),
-  server = require('http').createServer(app),
-    path = require('path'),
-      // io = require('socket.io').listen(server),
-  webRTC = require('webrtc.io'),
-  routes = require('./routes');
+app         = express(),
+server      = require('http').createServer(app),
+path        = require('path'),
+open        = require('open'),
+// io       = require('socket.io').listen(server),
+webRTC      = require('webrtc.io'),
+routes      = require('./routes'),
+websock     = require('websock'),
+net         = require('net');
 
 // Config
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -40,19 +42,16 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+// routes
 app.get('/', routes.index);
 app.get('/chat', checkAuth, routes.chat);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 
-
-//app.use(express.bodyParser());
-
 // create the http server and listen on port
-server.listen(HTTPSERVER_PORT);
-console.log('Web server and socket.io running on port %d...',HTTPSERVER_PORT);
-var open = require('open');
-open('http://localhost:'+HTTPSERVER_PORT);
+server.listen(HTTP_PORT);
+console.log('Web server and socket.io running on port %d...',HTTP_PORT);
+open('http://localhost:'+HTTP_PORT);
 
 webRTC.listen(WEBRTC_PORT);
 console.log('WebRTC server running on port %d...',WEBRTC_PORT);
@@ -62,8 +61,6 @@ console.log('WebRTC server running on port %d...',WEBRTC_PORT);
 @= WEBSOCK STUFF
 @================================================================================
 */
-var websock = require('websock'),
-        net = require('net');
 console.log('websock running on port %d...',WEBSOCKET_PORT);
 websock.listen(WEBSOCKET_PORT, function(socket) {
   console.log("Got connection from socket: "+socket.address); //socket ip address

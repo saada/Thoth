@@ -4,6 +4,11 @@
 @================================================================================
 */
 
+// CONSTANTS
+var HTTPSERVER_PORT = 8000;
+var WEBRTC_PORT = 4000;
+var WEBSOCKET_PORT = 80;
+
 // add the express framework
 var express = require('express'),
     app  = express(),
@@ -31,11 +36,11 @@ app.get('/logout', routes.logout);
 //app.use(express.bodyParser());
 
 // create the http server and listen on port
-server.listen(8000);
-console.log('Web server and socket.io running on port 8000...');
+server.listen(HTTPSERVER_PORT);
+console.log('Web server and socket.io running on port %d...',HTTPSERVER_PORT);
 
-webRTC.listen(4000);
-console.log('WebRTC server running on port 443...');
+webRTC.listen(WEBRTC_PORT);
+console.log('WebRTC server running on port %d...',WEBRTC_PORT);
 
 /*
 @================================================================================
@@ -44,8 +49,8 @@ console.log('WebRTC server running on port 443...');
 */
 var websock = require('websock'),
         net = require('net');
-console.log('websock running on port 80...');
-websock.listen(80, function(socket) {
+console.log('websock running on port %d...',WEBSOCKET_PORT);
+websock.listen(WEBSOCKET_PORT, function(socket) {
   console.log("Got connection from socket: "+socket.address); //socket ip address
   socket.state = 'unAuth';
   // socket.state = 'Auth';

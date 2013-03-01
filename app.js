@@ -47,6 +47,7 @@ app.get('/', routes.index);
 app.get('/chat', checkAuth, routes.chat);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
+app.use(routes.bad);
 
 // create the http server and listen on port
 server.listen(HTTP_PORT);

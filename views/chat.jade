@@ -1,21 +1,21 @@
 extends layout
 
 block content
-	//- script(src='/socket.io/socket.io.js')
-	script(src='/webrtc.io.js')
-	script(src='chat.js')
-
 	.row
 		.span12
 			h1 Video Conference Page
 			h3 Topics:
-			button#logoutBtn Logout
+			button.btn.btn-inverse#logoutBtn Logout
+			a.btn.btn-primary(href="/vnc/vnc.html", target="_blank") NoVNC
 			p#roominfo
-			button.room CSE430
-			button.room CSE464
-			button.room CSE598
+			button.btn.room CSE430
+			button.btn.room CSE464
+			button.btn.room CSE598
 			.videos
 				//- .video
 				//- 	video#myvideo(autoplay)
 				canvas#canvas 
 				//- video#remotevideo(autoplay)
+
+	script(src='/webrtc.io.js')
+	script(src='chat.js')

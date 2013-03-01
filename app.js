@@ -38,6 +38,8 @@ app.get('/logout', routes.logout);
 // create the http server and listen on port
 server.listen(HTTPSERVER_PORT);
 console.log('Web server and socket.io running on port %d...',HTTPSERVER_PORT);
+var open = require('open');
+open('http://localhost:'+HTTPSERVER_PORT);
 
 webRTC.listen(WEBRTC_PORT);
 console.log('WebRTC server running on port %d...',WEBRTC_PORT);

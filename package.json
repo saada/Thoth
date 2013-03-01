@@ -10,6 +10,7 @@
     "jade":"*",
     "webrtc.io":"*",
     "websock":"*",
-    "connect":"*"
+    "connect":"*",
+    "open":"*"
   }
 }

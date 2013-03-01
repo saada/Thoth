@@ -12,24 +12,34 @@ $(function(){
 	@= Capture frames from video into canvas (for VNC later)
 	@================================================================================
 	*/
-	// var canvas = document.getElementById('canvas');
-	// var ctx    = canvas.getContext('2d');
-	// var video  = document.getElementById('myvideo');
 
-	// video.addEventListener('play', function () {
-	// 	canvas.width = video.clientWidth;
-	// 	canvas.height = video.clientHeight;
-	// 	var _this = this; //cache
-	// 	(function loop() {
-	// 		if (!_this.paused && !_this.ended) {
-	// 			ctx.drawImage(_this, 0, 0);
-	// 			// This converts the image to base64 data. Unfortunately 
-	// 			// it slows down performance drastically.
-	// 			// canvas.toDataURL("image/png");
-	// 			setTimeout(loop, 1000 / 60); // drawing at 30fps
-	// 		}
-	// 	})();
-	// }, 0);
+	$('video').click(function(e) {
+		id = $(e.target).attr('id');
+		setCenterCanvas(id);
+	});
+
+	function setCenterCanvas(id)
+	{
+		console.log("the id is: "+id);
+		var canvas = document.getElementById('canvas');
+		var ctx    = canvas.getContext('2d');
+		var video  = document.getElementById(id);
+
+		video.addEventListener('play', function () {
+			canvas.width = video.clientWidth;
+			canvas.height = video.clientHeight;
+			var _this = this; //cache
+			(function loop() {
+				if (!_this.paused && !_this.ended) {
+					ctx.drawImage(_this, 0, 0);
+					// This converts the image to base64 data. Unfortunately 
+					// it slows down performance drastically.
+					// canvas.toDataURL("image/png");
+					setTimeout(loop, 1000 / 60); // drawing at 30fps
+				}
+			})();
+		}, 0);
+	}
 
 	$('#logoutBtn').click(function(e) {
 		$.get('/logout', function(data, textStatus, xhr) {
@@ -64,7 +74,7 @@ $(function(){
 			var div = $('.videos').prepend('<div class="video"></div>').children().first();
 			div.append('<video id='+id+' class="remotevideo" autoplay></video>');
 			rtc.attachStream(stream, id);
-			console.log('the id is: ' + id);
+			console.log('new remote stream id is: ' + id);
 			setTimeout(function() {
 				$('.video').css('max-height', $('#'+id).prop('videoHeight'));
 				$('.video').css('min-height', $('#'+id).prop('videoHeight')/3);

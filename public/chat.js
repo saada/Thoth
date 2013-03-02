@@ -49,7 +49,7 @@ $(function(){
 
 	// Video Conferencing code
 	$('.room').click(function(e){
-		$('.remotevideo').remove();
+		$('.remotevideo').parent().fadeOut(1000,'swing',function() { $(this).remove(); });
 		$('#roominfo').html('You are in room '+$(e.target).html());
 		// Close socket if not null
 		if(rtc !==null && rtc._socket !== null){
@@ -72,7 +72,7 @@ $(function(){
 		rtc.on('add remote stream',function(stream, id){
 			console.log('add remote stream');
 			var div = $('.videos').prepend('<div class="video row"></div>').children().first();
-			var vid = div.append('<video id='+id+' class="remotevideo" autoplay></video>').children().first();
+			var vid = div.hide().append('<video id='+id+' class="remotevideo" autoplay></video>').children().first();
 
 			centralizeStreamOnClick(vid);
 
@@ -90,7 +90,7 @@ $(function(){
 		rtc.on('remove_peer_connected', function(data) {
 			console.log('peer disconnected! socketId:'+data.socketId);
 			// remove video element
-			$('#'+data.socketId).parent().remove();
+			$('#'+data.socketId).parent().fadeOut(1000,'swing',function() { $(this).remove(); });
 		});
 
 	});
@@ -102,7 +102,7 @@ var getLocalCamera = function(){
 		localstream = stream;
 		// Create video element
 		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
-		var vid = div.append('<video id="myvideo" autoplay src=""></video>').children().first();
+		var vid = div.hide().append('<video id="myvideo" autoplay src=""></video>').children().first();
 		centralizeStreamOnClick(vid);
 		// Attach stream
 		rtc.attachStream(localstream, 'myvideo');
@@ -114,14 +114,18 @@ var getLocalCamera = function(){
 // Clone element and place it in the center of the screen on click
 var centralizeStreamOnClick = function(element){
 	element.click(function(){
-		$('.centerStream').html(
-			$(this).clone().css({
-				'max-height':'inherit',
-				'min-height':'inherit',
-				'max-width' :'inherit',
-				'min-width' :'inherit'
-			})
-		);
+		var inner = $('.centerStream').children().first();
+		if(! (inner.is('#'+$(this).attr('id'))))
+		{
+			$('.centerStream').html(
+				$(this).clone().css({
+					'max-height':'inherit',
+					'min-height':'inherit',
+					'max-width' :'inherit',
+					'min-width' :'inherit'
+				})
+			);
+		}
 	});
 };
 
@@ -182,7 +186,7 @@ var animateVideo = function(div,vid) {
 				ui.item.children().first()[0].play();
 			}
 		});
-
+		div.show(600, 'easeInOutBack');
 	}, 20);
 };
 

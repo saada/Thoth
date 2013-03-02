@@ -59,7 +59,7 @@ $(function(){
 		rtc = jQuery.extend(true, {}, _rtc);
 		rtc.connect('ws://'+window.location.host.split(':')[0]+':4000', $(e.target).html());
 		console.log('Connecting via WebRTC to ws://'+window.location.host.split(':')[0]+':4000 in room: '+$(e.target).html());
-		
+
 		if(localstream === null)
 		{
 			getLocalCamera();
@@ -73,30 +73,15 @@ $(function(){
 			console.log('add remote stream');
 			var div = $('.videos').prepend('<div class="video row"></div>').children().first();
 			var vid = div.append('<video id='+id+' class="remotevideo" autoplay></video>').children().first();
-			vid.click(function(){
-				$('.centerStream').html(
-					$(this).clone()
-						.css('max-height','inherit')
-						.css('min-height','inherit')
-						.css('max-width','inherit')
-						.css('min-width','inherit')
-				);
-			});
+
+			centralizeStreamOnClick(vid);
+
 			rtc.attachStream(stream, id);
 			console.log('new remote stream id is: ' + id);
-			setTimeout(function() {
-				$('.video').css('max-height', $('#'+id).prop('videoHeight'));
-				$('.video').css('min-height', $('#'+id).prop('videoHeight')/3);
-				$('.video').css('max-width', $('#'+id).prop('videoWidth'));
-				$('.video').css('min-width', $('#'+id).prop('videoWidth')/3);
-				$('#'+id).css('max-height', $('#'+id).prop('videoHeight'));
-				$('#'+id).css('min-height', $('#'+id).prop('videoHeight')/3);
-				$('#'+id).css('max-width', $('#'+id).prop('videoWidth'));
-				$('#'+id).css('min-width', $('#'+id).prop('videoWidth')/3);
-				$(".video").draggable().resizable({aspectRatio:true});
-				$('#'+id).show();
-			}, 1000)
+
+			animateVideo(div,vid);
 		});
+
 		// close_stream
 		rtc.on('close_stream',function(data){
 			console.log('close stream');
@@ -108,46 +93,97 @@ $(function(){
 			$('#'+data.socketId).parent().remove();
 		});
 
-		
 	});
 });
 
+// Get and attach local webcam stream
 var getLocalCamera = function(){
 	rtc.createStream({"video": true, "audio":true}, function(stream){
 		localstream = stream;
 		// Create video element
 		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
 		var vid = div.append('<video id="myvideo" autoplay src=""></video>').children().first();
-		vid.click(function(){
-			$('.centerStream').html(
-				$(this).clone()
-					.css('max-height','inherit')
-					.css('min-height','inherit')
-					.css('max-width','inherit')
-					.css('min-width','inherit')
-			);
-		});
+		centralizeStreamOnClick(vid);
 		// Attach stream
 		rtc.attachStream(localstream, 'myvideo');
-		// While no src defined, wait
-		// while(! $('#myvideo').prop('videoHeight') > 0)
-		// {
-		// }
-		setTimeout(function() {
-		$('.video').css('max-height', $('#myvideo').prop('videoHeight')/3);
-		$('.video').css('min-height', $('#myvideo').prop('videoHeight')/3);
-		$('.video').css('max-width', $('#myvideo').prop('videoWidth')/3);
-		$('.video').css('min-width', $('#myvideo').prop('videoWidth')/3);
-		$('#myvideo').css('max-height', $('#myvideo').prop('videoHeight')/3);
-		$('#myvideo').css('min-height', $('#myvideo').prop('videoHeight')/3);
-		$('#myvideo').css('max-width', $('#myvideo').prop('videoWidth')/3);
-		$('#myvideo').css('min-width', $('#myvideo').prop('videoWidth')/3);
-		$(".video").draggable().resizable({aspectRatio:true});
-		$('#myvideo').show();
-		}, 200)
 
-
+		animateVideo(div,vid);
 	});
+};
+
+// Clone element and place it in the center of the screen on click
+var centralizeStreamOnClick = function(element){
+	element.click(function(){
+		$('.centerStream').html(
+			$(this).clone().css({
+				'max-height':'inherit',
+				'min-height':'inherit',
+				'max-width' :'inherit',
+				'min-width' :'inherit'
+			})
+		);
+	});
+};
+
+var count = 0;
+// Takes parent div of video and video element and enables resizable, draggable
+var animateVideo = function(div,vid) {
+	setTimeout(function(){
+		if(count < 500 && vid.prop('videoHeight')  === 0)
+		{
+			count++;
+			animateVideo(div,vid);	//recursive call
+			return;
+		}
+		else if(count >= 500)	//500*20 = 10000ms = 10s
+		{
+			div.remove();
+			vid.remove();
+			alert('Your webcam is taking too long to load');
+			return;
+		}
+		count = 0;
+
+		var vidHeight = vid.prop('videoHeight'),
+			vidWidth  = vid.prop('videoWidth'),
+			initRatio = 1/3,
+			minRatio  = 1/3,
+			maxRatio  = 1;
+
+		var min_max_size = {
+			// MIN
+			'min-height': vidHeight * minRatio,
+			'min-width' : vidWidth  * minRatio,
+			// MAX
+			'max-height': vidHeight * maxRatio,
+			'max-width' : vidWidth  * maxRatio
+		};
+
+		var init_size = {
+			// INIT
+			'height'	: vidHeight	* initRatio,
+			'width'		: vidWidth	* initRatio
+		};
+
+		vid.css(min_max_size);
+		div.css(min_max_size).css(init_size);
+		// div.draggable().resizable({aspectRatio:true});
+		div.resizable({aspectRatio:true,side:{top:true,left:true,bottom:true,right:true}});
+		$('.videos').sortable({
+			// containment: '.videos',
+			revert: 200,
+			cursor: 'move',
+			tolerance: 'pointer',
+			scroll: false,
+			connectWith: '.videos',
+			items: "> .video",
+			stop: function( event, ui ) {
+				//video pauses after drag... this fixes the bug
+				ui.item.children().first()[0].play();
+			}
+		});
+
+	}, 20);
 };
 
 var closeRTC = function(){

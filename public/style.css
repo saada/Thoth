@@ -20,7 +20,7 @@ video,canvas {
 }
 
 .video{
-	position:absolute;
+	position:relative;
 	/*border: 5px solid red;*/
 	overflow: visible;
 

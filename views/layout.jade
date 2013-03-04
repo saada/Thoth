@@ -1,12 +1,31 @@
 doctype 5
 html(lang="en")
 	head
-		title= title
-		link(href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css", rel="stylesheet")
-		link(rel="stylesheet", type="text/css", href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css")
-		link(href="/style.css", rel="stylesheet")
-		script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
-		script(type="text/javascript", src="http://code.jquery.com/ui/1.10.1/jquery-ui.js")
+		block head
+			title= title
+
+			meta(charset='utf-8')
+			meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+			//- Apple iOS Safari settings 
+			meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+			meta(name='apple-mobile-web-app-capable', content='yes')
+			meta(names='apple-mobile-web-app-status-bar-style', content='black-translucent')
+
+			block css
+				//- App Start Icon  
+				link(rel='apple-touch-startup-image', href='/VNC/images/screen_320x460.png')
+				//- For iOS devices set the icon to use if user bookmarks app on their homescreen 
+				link(rel='apple-touch-icon', href='/VNC/images/screen_57x57.png')
+				//- Bootstrap
+				link(href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css", rel="stylesheet")
+				//- jQuery UI
+				link(rel="stylesheet", type="text/css", href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css")
+				//- Our custom css file
+				link(href="/style.css", rel="stylesheet")
+
+			block scripts
+				script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+				script(type="text/javascript", src="http://code.jquery.com/ui/1.10.1/jquery-ui.js")
 	body
 		.container
 			block content

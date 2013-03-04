@@ -16,7 +16,7 @@ var express = require('express'),
 app         = express(),
 server      = require('http').createServer(app),
 path        = require('path'),
-open        = require('open'),
+openBrowser = require('open'),
 // io       = require('socket.io').listen(server),
 webRTC      = require('webrtc.io'),
 routes      = require('./routes'),
@@ -52,7 +52,7 @@ app.use(routes.bad);
 // create the http server and listen on port
 server.listen(HTTP_PORT);
 console.log('Web server and socket.io running on port %d...',HTTP_PORT);
-open('http://localhost:'+HTTP_PORT);
+openBrowser('http://localhost:'+HTTP_PORT);
 
 webRTC.listen(WEBRTC_PORT);
 console.log('WebRTC server running on port %d...',WEBRTC_PORT);
@@ -120,7 +120,7 @@ websock.listen(WEBSOCKET_PORT, function(socket) {
           // var firstByte = buf[0];
           // if (firstByte != 4 && firstByte != 5 && firstByte != 6) {
           //   vncSocket.write(buf);
-          //   //console.log('SEND TO VNC:' + new Buffer(message, 'base64'));
+            console.log('SEND TO VNC:' + new Buffer(message, 'base64'));
           // }
           vncSocket.write(buf);
         }
@@ -128,7 +128,6 @@ websock.listen(WEBSOCKET_PORT, function(socket) {
         {
           socket.close();
         }
-        
     });
 });
 

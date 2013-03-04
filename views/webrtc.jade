@@ -1,0 +1,21 @@
+.span4
+	h1 Video Conference Page
+	h3 Topics:
+	button.btn.btn-inverse#logoutBtn Logout
+	a.btn.btn-primary(href="/vnc/vnc.html", target="_blank") NoVNC
+	p#roominfo
+	button.btn.room CSE430
+	button.btn.room CSE464
+	button.btn.room CSE598
+	.videos
+		//- .video
+		//- 	video#myvideo(autoplay)
+		//- canvas#canvas 
+		//- video#remotevideo(autoplay)
+.span8
+	//- iframe(src="/vnc/vnc.html", style="width:100%;height:400px")
+	.centerStream
+		h1(style="text-align:center;line-height:350px;") CENTER VIDEO
+
+script(src='/webrtc.io.js')
+script(src='chat.js')

@@ -11,6 +11,7 @@
     "webrtc.io":"*",
     "websock":"*",
     "connect":"*",
-    "open":"*"
+    "open":"*",
+    "redis":"*"
   }
 }

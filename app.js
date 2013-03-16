@@ -16,7 +16,6 @@ var express = require('express'),
 app         = express(),
 server      = require('http').createServer(app),
 path        = require('path'),
-openBrowser = require('open'),
 // io       = require('socket.io').listen(server),
 webRTC      = require('webrtc.io'),
 routes      = require('./routes'),
@@ -52,7 +51,9 @@ app.use(routes.bad);
 // create the http server and listen on port
 server.listen(HTTP_PORT);
 console.log('Web server and socket.io running on port %d...',HTTP_PORT);
-openBrowser('http://localhost:'+HTTP_PORT);
+
+if (process.argv[2] == '-o')  //launch browser
+  require('open')('http://localhost:'+HTTP_PORT);
 
 webRTC.listen(WEBRTC_PORT);
 console.log('WebRTC server running on port %d...',WEBRTC_PORT);

@@ -5,22 +5,20 @@
 */
 
 // CONSTANTS
-var   HTTP_PORT = 8000,
-    WEBRTC_PORT = 4000,
- WEBSOCKET_PORT = 80;
+var conf   = require('./config');
+var routes = require('./routes');
 
 /**
  * Module dependencies.
  */
-var express = require('express'),
-app         = express(),
-server      = require('http').createServer(app),
-path        = require('path'),
-// io       = require('socket.io').listen(server),
-webRTC      = require('webrtc.io'),
-routes      = require('./routes'),
-websock     = require('websock'),
-net         = require('net');
+var express = require('express');
+var app     = express();
+var server  = require('http').createServer(app);
+var path    = require('path');
+// var io   = require('socket.io').listen(server);
+var webRTC  = require('webrtc.io');
+var websock = require('websock');
+var net     = require('net');
 
 // Config
 app.configure(function(){
@@ -49,22 +47,22 @@ app.get('/logout', routes.logout);
 app.use(routes.bad);
 
 // create the http server and listen on port
-server.listen(HTTP_PORT);
-console.log('Web server and socket.io running on port %d...',HTTP_PORT);
+server.listen(conf.HTTP_PORT);
+console.log('Web server and socket.io running on port %d...',conf.HTTP_PORT);
 
 if (process.argv[2] == '-o')  //launch browser
-  require('open')('http://localhost:'+HTTP_PORT);
+  require('open')('http://localhost:'+conf.HTTP_PORT);
 
-webRTC.listen(WEBRTC_PORT);
-console.log('WebRTC server running on port %d...',WEBRTC_PORT);
+webRTC.listen(conf.WEBRTC_PORT);
+console.log('WebRTC server running on port %d...',conf.WEBRTC_PORT);
 
 /*
 @================================================================================
 @= WEBSOCK STUFF
 @================================================================================
 */
-console.log('websock running on port %d...',WEBSOCKET_PORT);
-websock.listen(WEBSOCKET_PORT, function(socket) {
+console.log('websock running on port %d...',conf.WEBSOCKET_PORT);
+websock.listen(conf.WEBSOCKET_PORT, function(socket) {
   console.log("Got connection from socket: "+socket.address); //socket ip address
   socket.state = 'unAuth';
   // socket.state = 'Auth';

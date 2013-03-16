@@ -7,14 +7,19 @@
 var websock = require('websock');
 var net     = require('net');
 
-exports.listen = function(WEBSOCKET_PORT) {
-  websock.listen(WEBSOCKET_PORT, function(socket) {
+exports.listen = function(port) {
+  var sockets = [];
+  websock.listen(port, function(socket) {
+    sockets.push(socket);
+    console.log("# of sockets: " + sockets.length);
     console.log("Got connection from socket: " + socket.address); //socket ip address
     socket.state = 'unAuth';
     // socket.state = 'Auth';
     var vncSocket;
     socket.on('close', function() {
       console.log('Socket closed...');
+      sockets.splice(sockets.indexOf(socket), 1);
+      console.log("# of sockets: " + sockets.length);
     });
     socket.on('message', function(message) {
       //console.log('RECV FROM CLIENT:' + (new Buffer(message, 'base64')).toString());

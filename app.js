@@ -1,3 +1,21 @@
+console.log('+      o     +              o   ');
+console.log('    +             o     +       +');
+console.log('o          +');
+console.log('    o  +           +        +');
+console.log('+        o     o       +        o');
+console.log('-_-_-_-_-_-_-_,------,      o ');
+console.log('_-_-_-_-_-_-_-|   /\\_/\\  ');
+console.log('-_-_-_-_-_-_-~|__( ^ .^)  +     +  ');
+console.log('_-_-_-_-_-_-_-""  ""      ');
+console.log('+      o         o   +       o');
+console.log('    +         +');
+console.log('o        o         o      o     +');
+console.log('    o           +');
+console.log('+      +     o        o      +    ');
+
+
+
+
 /*
 @================================================================================
 @= MAIN APP

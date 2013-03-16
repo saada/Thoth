@@ -1,26 +1,27 @@
 /*
 @================================================================================
-@= WEBSERVER STUFF
+@= MAIN APP
 @================================================================================
 */
 
 // Custom Modules
 var conf   = require('./config');
+var web = require('./webserver');
 
 // Module dependencies
-
-// var io   = require('socket.io').listen(server);
+var io   = require('socket.io').listen(web.server);
 var webRTC  = require('webrtc.io');
 var websock = require('websock');
 var net     = require('net');
 
-// create the http server and listen on port
-var webserver = require('./webserver');
-webserver.server.listen(conf.HTTP_PORT);
+// launch web server
+web.server.listen(conf.HTTP_PORT,function(){
+  if (process.argv[2] == '-o')  //launch browser
+    require('open')('http://localhost:'+conf.HTTP_PORT);
+  else
+    console.log("~# You could pass '-o' to open localhost on a browser #~");
+});
 console.log('Web server and socket.io running on port %d...',conf.HTTP_PORT);
-
-if (process.argv[2] == '-o')  //launch browser
-  require('open')('http://localhost:'+conf.HTTP_PORT);
 
 webRTC.listen(conf.WEBRTC_PORT);
 console.log('WebRTC server running on port %d...',conf.WEBRTC_PORT);

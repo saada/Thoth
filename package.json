@@ -5,12 +5,10 @@
   "private": true,
   "dependencies": {
     "express": "*",
-    "socket.io":"*",
-    "peer":"*",
     "jade":"*",
+    "socket.io":"*",
     "webrtc.io":"*",
     "websock":"*",
-    "connect":"*",
     "open":"*",
     "redis":"*"
   }

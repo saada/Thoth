@@ -1,20 +1,12 @@
-console.log('+      o     +              o   ');
-console.log('    +             o     +       +');
-console.log('o          +');
 console.log('    o  +           +        +');
 console.log('+        o     o       +        o');
-console.log('-_-_-_-_-_-_-_,------,      o ');
-console.log('_-_-_-_-_-_-_-|   /\\_/\\  ');
-console.log('-_-_-_-_-_-_-~|__( ^ .^)  +     +  ');
-console.log('_-_-_-_-_-_-_-""  ""      ');
+console.log('-_-_-_-_-_-_-_,-----------------,      o ');
+console.log('_-_-_-_-_-_-_-| STARTING... /\\_/\\  ');
+console.log('-_-_-_-_-_-_-~|____________( ^ .^)  +     +  ');
+console.log('_-_-_-_-_-_-_-""            ""      ');
 console.log('+      o         o   +       o');
 console.log('    +         +');
-console.log('o        o         o      o     +');
-console.log('    o           +');
-console.log('+      +     o        o      +    ');
-
-
-
+console.log('o        o         o      o     +\n');
 
 /*
 @================================================================================
@@ -38,9 +30,10 @@ web.server.listen(conf.HTTP_PORT,function(){
     require('open')('http://localhost:'+conf.HTTP_PORT);
   else
     console.log("~# You could pass '-o' to open localhost on a browser #~");
+  console.log('Web server and socket.io running on port %d...',conf.HTTP_PORT);
 });
-console.log('Web server and socket.io running on port %d...',conf.HTTP_PORT);
 
+// Launch webRTC
 webRTC.listen(conf.WEBRTC_PORT);
 console.log('WebRTC server running on port %d...',conf.WEBRTC_PORT);
 

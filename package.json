@@ -9,7 +9,6 @@
     "socket.io":"*",
     "webrtc.io":"*",
     "websock":"*",
-    "open":"*",
-    "redis":"*"
+    "open":"*"
   }
 }

@@ -49,3 +49,12 @@ function checkAuth(req, res, next) {
 exports.express = express;
 exports.app = app;
 exports.server = server;
+
+exports.listen = function(port){
+	server.listen(port, function(){
+		if (process.argv[2] == '-o')  //launch browser
+			require('open')('http://localhost:' + port);
+		else
+			console.log("~# You could pass '-o' to open localhost on a browser #~");
+	});
+};

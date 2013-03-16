@@ -24,12 +24,7 @@ var io   = require('socket.io').listen(web.server);
 var webRTC  = require('webrtc.io');
 
 // launch web server
-web.server.listen(conf.HTTP_PORT,function(){
-  if (process.argv[2] == '-o')  //launch browser
-    require('open')('http://localhost:'+conf.HTTP_PORT);
-  else
-    console.log("~# You could pass '-o' to open localhost on a browser #~");
-});
+web.listen(conf.HTTP_PORT);
 console.log('Web server and socket.io running on port %d...',conf.HTTP_PORT);
 
 // Launch webRTC

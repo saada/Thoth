@@ -17,7 +17,8 @@ console.log('o        o         o      o     +\n');
 // Custom Modules
 var conf   = require('./config');
 var web = require('./webserver');
-var ws = require('./websockets');
+// var ws = require('./websockets');
+var ws = require('./websockify');
 
 // Module dependencies
 // var io   = require('socket.io').listen(web.server);
@@ -29,7 +30,7 @@ console.log('Web server and socket.io running on port %d...',conf.HTTP_PORT);
 
 // Launch websock
 // ws.listen(conf.WEBSOCKET_PORT);
-ws.listen(web);	// here websock looks for the '.server' property
+ws.listen(web.server);	// here websock looks for the '.server' property
 console.log('websock running on port %d...',conf.WEBSOCKET_PORT);
 
 // Launch webRTC

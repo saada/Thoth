@@ -8,7 +8,7 @@ var websock = require('websock');
 var net     = require('net');
 exports.listen = function(port) {
   var sockets = [];
-  websock.listen(port, function(socket) {console.log(socket.connection.server);
+  websock.listen(port, function(socket) {
     console.log("Got connection from socket: " + socket.address); //socket ip address
     sockets.push(socket);
     console.log("# of sockets: " + sockets.length);
@@ -34,8 +34,8 @@ exports.listen = function(port) {
           // socket.send(buf.toString('base64'));
           socket.state = "Auth";
           // START VNC CONNECTION
-          // vncSocket = net.createConnection("5901", "10.0.1.247");
-          vncSocket = net.createConnection("1", "192.168.2.79");
+          vncSocket = net.createConnection("5901", "10.0.2.164");
+          // vncSocket = net.createConnection("1", "192.168.2.79");
           vncSocket.on('error',function(err){console.log("VNCSOCKET Error: ",err.code);});
           vncSocket.on('data', function(data) {
             //console.log('RECV FROM VNC:' + data);

@@ -9,6 +9,9 @@
     "socket.io":"*",
     "webrtc.io":"*",
     "websock":"*",
-    "open":"*"
+    "open":"*",
+    "ws":"*",
+    "optimist":"*",
+    "policyfile":"*"
   }
 }

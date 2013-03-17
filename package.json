@@ -10,7 +10,7 @@
     "webrtc.io":"*",
     "websock":"*",
     "open":"*",
-    "ws":"*",
+    "ws":"https://github.com/kanaka/ws/tarball/master",
     "optimist":"*",
     "policyfile":"*"
   }

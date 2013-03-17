@@ -129,7 +129,6 @@ selectProtocol = function(protocols, callback) {
 };
 
 exports.listen = function(webServer) {
-    console.log('STARTING WEBSOCKIFY...');
     wsServer = new WebSocketServer({
         server: webServer,
         handleProtocols: selectProtocol

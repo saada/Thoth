@@ -3,6 +3,12 @@
 @= WebRTC CSS
 @================================================================================
 */
+.container{
+  width: 80%;
+}
+.hero-unit, .form{
+  text-align: center;
+}
 .centerStream{
 	text-align:center;
 	border: 10px solid brown;

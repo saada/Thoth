@@ -230,32 +230,33 @@ function constructor() {
     ws = new Websock();
     ws.on('message', handle_message);
     ws.on('open', function() {
-        if(rfb_state === "auth") {
-            var sessionId = WebUtil.readCookie('connect.sess', '');
-            // var sess_arr = [];
-            // for(i = 0; i<sessionId.length; i++)
-            // {
-            //     sess_arr.push8(sessionId.charCodeAt(i));
-            // }
-            // console.log(sess_arr);
-            // ws.send(sess_arr);
-            if(sessionId)   //If not blank
-            {
-                ws.send_string(sessionId);
-                updateState('ProtocolVersion', "Starting VNC handshake");
-            }
-            else 
-            {
-                ws.send_string("0");
-                updateState('failed', "You sucker!");
-            }
-        }
-        // else if (rfb_state === "connect") {
-        //     updateState('ProtocolVersion', "Starting VNC handshake");
-        // } 
-        else {
-            fail("Got unexpected WebSockets connection");
-        }
+        updateState('ProtocolVersion', "Starting VNC handshake");
+        // if(rfb_state === "auth") {
+        //     var sessionId = WebUtil.readCookie('connect.sess', '');
+        //     // var sess_arr = [];
+        //     // for(i = 0; i<sessionId.length; i++)
+        //     // {
+        //     //     sess_arr.push8(sessionId.charCodeAt(i));
+        //     // }
+        //     // console.log(sess_arr);
+        //     // ws.send(sess_arr);
+        //     if(sessionId)   //If not blank
+        //     {
+        //         ws.send_string(sessionId);
+        //         updateState('ProtocolVersion', "Starting VNC handshake");
+        //     }
+        //     else 
+        //     {
+        //         ws.send_string("0");
+        //         updateState('failed', "You sucker!");
+        //     }
+        // }
+        // // else if (rfb_state === "connect") {
+        // //     updateState('ProtocolVersion', "Starting VNC handshake");
+        // // } 
+        // else {
+        //     fail("Got unexpected WebSockets connection");
+        // }
     });
     ws.on('close', function(e) {
         Util.Warn("WebSocket on-close event");

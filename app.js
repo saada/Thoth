@@ -26,12 +26,11 @@ var webRTC  = require('webrtc.io');
 
 // launch web server
 web.listen(conf.HTTP_PORT);
-console.log('Web server and socket.io running on port %d...',conf.HTTP_PORT);
+console.log('HTTP server running on port %d...',conf.HTTP_PORT);
 
 // Launch websock
-// ws.listen(conf.WEBSOCKET_PORT);
-ws.listen(web.server);	// here websock looks for the '.server' property
-console.log('websock running on port %d...',conf.WEBSOCKET_PORT);
+ws.listen(web.server);	// upgrade http to websocket
+console.log('Websockify server running on port %d...',conf.HTTP_PORT);
 
 // Launch webRTC
 webRTC.listen(conf.WEBRTC_PORT);

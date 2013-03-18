@@ -21,9 +21,58 @@ var net = require('net'),
     wsServer, target_host, target_port;
 
 var targets = [];
-connectVNC = function(target_port, target_host)
+connectVNC = function(socket, target_port, target_host)
 {
+    // START VNC CONNECTION
+    target = net.createConnection(target_port, target_host, function() {
+        console.log('connected to target');
 
+        socket.on('message', function(msg) {
+            // var firstByte = buf[0];
+            // if (firstByte != 4 && firstByte != 5 && firstByte != 6) {
+            if (socket.protocol === 'base64') {
+                target.write(new Buffer(msg, 'base64'));
+            } else {
+                // console.log("receive message from client: "+ msg);
+                target.write(msg, 'binary');
+            }
+        });
+    });
+    target.on('error', function(err) {
+        console.log("Target Error: ", err.code);
+    });
+    target.on('data', function(data) {
+        // console.log("receive mesage from vnc: " + data);
+        try {
+            if (socket.protocol === 'base64') {
+                socket.send(new Buffer(data).toString('base64'));
+            } else {
+                socket.send(data, {
+                    binary: true
+                });
+            }
+        } catch (e) {
+            console.log("Client closed, cleaning up target");
+            target.end();
+        }
+    });
+    target.on('end', function() {
+        console.log('target disconnected');
+        socket.close();
+    });
+    //console.log('got message: ' + msg);
+};
+
+authSocket = function(socket){
+    var reqCookie = socket.upgradeReq.headers.cookie;
+    var cookies = {};
+    reqCookie && reqCookie.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=');
+        cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
+    });
+    console.log(cookies);
+    // if(memoryStore contains this sessionId)
+    return true;
 };
 
 // Handle new WebSocket client
@@ -33,72 +82,23 @@ new_client = function(client) {
     log = function(msg) {
         console.log(' ' + clientAddr + ': ' + msg);
     };
-    log('WebSocket connection');
-    log('Version ' + client.protocolVersion + ', subprotocol: ' + client.protocol);
+    console.log('WebSocket connection');
+    console.log('Version ' + client.protocolVersion + ', subprotocol: ' + client.protocol);
 
-    var reqCookie = client.upgradeReq.headers.cookie;
-    var cookies = {};
-    reqCookie && reqCookie.split(';').forEach(function( cookie ) {
-        var parts = cookie.split('=');
-        cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
-    });
-    console.log(cookies);
-    // if(memoryStore contains this sessionId)
-    if (reqCookie) {
-
-        // START VNC CONNECTION
+    if (authSocket(client)) {
         target_port = "5901";
         target_host = "10.0.2.164";
-
-        target = net.createConnection(target_port, target_host, function() {
-            log('connected to target');
-
-            client.on('message', function(msg) {
-                // var firstByte = buf[0];
-                // if (firstByte != 4 && firstByte != 5 && firstByte != 6) {
-                if (client.protocol === 'base64') {
-                    target.write(new Buffer(msg, 'base64'));
-                } else {
-                    // console.log("receive message from client: "+ msg);
-                    target.write(msg, 'binary');
-                }
-            });
-        });
-        target.on('error', function(err) {
-            console.log("Target Error: ", err.code);
-        });
-        target.on('data', function(data) {
-            // log("receive mesage from vnc: " + data);
-            try {
-                if (client.protocol === 'base64') {
-                    client.send(new Buffer(data).toString('base64'));
-                } else {
-                    client.send(data, {
-                        binary: true
-                    });
-                }
-            } catch (e) {
-                log("Client closed, cleaning up target");
-                target.end();
-            }
-        });
-        target.on('end', function() {
-            log('target disconnected');
-            client.close();
-        });
-        //log('got message: ' + msg);
+        connectVNC(client, target_port, target_host);
     }
     else
         client.close();
 
-    
-
     client.on('close', function(code, reason) {
-        log('WebSocket client disconnected: ' + code + ' [' + reason + ']');
+        console.log('WebSocket client disconnected: ' + code + ' [' + reason + ']');
         target.end();
     });
     client.on('error', function(a) {
-        log('WebSocket client error: ' + a);
+        console.log('WebSocket client error: ' + a);
         target.end();
     });
 };

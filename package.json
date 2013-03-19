@@ -9,6 +9,8 @@
     "socket.io":"*",
     "webrtc.io":"*",
     "open":"*",
+    "cookie":"*",
+    "connect":"*",
     "ws":"https://github.com/kanaka/ws/tarball/master"
   },
   "scripts": {

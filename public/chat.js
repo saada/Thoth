@@ -194,3 +194,28 @@ var closeRTC = function(){
 	console.log("closing socket...");
 	rtc._socket.close();
 };
+
+/*
+@================================================================================
+@= IFRAME
+@================================================================================
+*/
+$(function() {
+	// $('.resize_iframe').resizable({
+	// 	aspectRatio:true,
+	// 	side:{
+	// 		top:true,
+	// 		left:true,
+	// 		bottom:true,
+	// 		right:true
+	// 	},
+	// 	resize: function(event, ui) {
+	// 		$(".resize_iframe iframe").css({ "height": ui.size.height,"width":ui.size.width});
+	// 	}
+	// });
+	// $('.resize_iframe').click(function(){
+	// 	setTimeout(function() {
+	// 		$(".resize_iframe iframe")[0].contentWindow.focus();
+	// 	}, 100);
+	// });
+});

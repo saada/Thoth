@@ -9,6 +9,7 @@ var app     = express();
 var server  = require('http').createServer(app);
 var path    = require('path');
 var routes = require('./routes');
+var sessionStore = new express.session.MemoryStore();
 
 // Config
 app.configure(function(){
@@ -18,9 +19,9 @@ app.configure(function(){
 	// app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(express.cookieParser('your secret here'));
+	app.use(express.cookieParser('monkey'));
 	app.use(express.cookieSession());
-	app.use(express.session());
+	app.use(express.session({store:sessionStore}));
 	app.use(app.router);
 	app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -31,24 +32,16 @@ app.configure('development', function(){
 
 // routes
 app.get('/', routes.index);
-app.get('/chat', checkAuth, routes.chat);
+app.get('/chat', routes.checkAuth, routes.chat);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 app.use(routes.bad);
-
-// authorization
-function checkAuth(req, res, next) {
-  if (!req.session.user_id) {
-    res.send('You are not authorized to view this page');
-  } else {
-    next();
-  }
-}
 
 // exports
 exports.express = express;
 exports.app = app;
 exports.server = server;
+exports.sessionStore = sessionStore;
 
 exports.listen = function(port){
 	server.listen(port, function(){

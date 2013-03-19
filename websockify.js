@@ -18,7 +18,7 @@
 var net = require('net'),
     WebSocketServer = require('ws').Server,
 
-    wsServer, target_host, target_port;
+    sessionStore, express, wsServer, target_host, target_port;
 
 var targets = [];
 connectVNC = function(socket, target_port, target_host)
@@ -64,13 +64,21 @@ connectVNC = function(socket, target_port, target_host)
 };
 
 authSocket = function(socket){
-    var reqCookie = socket.upgradeReq.headers.cookie;
-    var cookies = {};
-    reqCookie && reqCookie.split(';').forEach(function( cookie ) {
-        var parts = cookie.split('=');
-        cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
-    });
-    console.log(cookies);
+    var reqCookie = socket.upgradeReq.headers.cookie;   // TRY TO LOOK FOR HANDSHAKE INSTEAD
+    var parsedCookie = require('cookie').parse(reqCookie);
+    var signedCookie = require('connect').utils.parseSignedCookies(parsedCookie,'monkey');
+    var json = JSON.parse(signedCookie['connect.sess'].slice(2));
+    var user = json['user'];
+    console.log(user);
+    // sessionStore.get(json, function(err, session) {console.log(session);
+    //     if (err || !session) console.log('websockify: no found session.', false);
+    //     socket.session = session;
+    //     if (socket.session.user) {
+    //       console.log(null, true);
+    //     } else {
+    //       console.log('websockify: no found session.user', false);
+    //     }
+    // });
     // if(memoryStore contains this sessionId)
     return true;
 };
@@ -117,9 +125,10 @@ selectProtocol = function(protocols, callback) {
     }
 };
 
-exports.listen = function(webServer) {
+exports.listen = function(web) {
+    sessionStore = web.sessionStore;
     wsServer = new WebSocketServer({
-        server: webServer,
+        server: web.server,
         handleProtocols: selectProtocol
     });
     wsServer.on('connection', new_client);

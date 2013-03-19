@@ -1,8 +1,32 @@
-// Root
+// authentication
+var authenticate = function(user, password){
+	var users = [
+		{user:'larry', password:'larry'},
+		{user:'moody', password:'moody'}
+	];
+	for (var i = 0; i < users.length; i++) {
+		_user = users[i];
+		if(_user.user === user && _user.password === password)
+			return _user;
+	}
+	return false;
+};
+
+// authorization
+exports.checkAuth = function (req, res, next) {
+  if (!req.session.user) {
+    res.send('You are not authorized to view this page');
+  } else {
+    next();
+  }
+};
+
+// Login
 exports.login = function(req, res){
 	var post = req.body;
-	if (post.user === '' && post.password === '') {
-		req.session.user_id = "123";
+	var authedUser = authenticate(post.user, post.password);
+	if (authedUser) {
+		req.session.user = authedUser.user;
 		sendResponse(res, "/chat");
 	} else {
 		sendResponse(res, "/bad");
@@ -10,7 +34,8 @@ exports.login = function(req, res){
 };
 
 exports.logout = function(req, res){
-	delete req.session.user_id;
+	delete req.session.user;
+	req.session = null;
 	sendResponse(res, '/');
 };
 
@@ -19,6 +44,11 @@ exports.chat = function(req, res){
 };
 
 exports.index = function (req, res) {
+	if (req.session.user)
+	{
+		res.redirect('/chat');
+		return;
+	}
 	res.render('index', { title: 'Welcome to VLAB' });
 };
 

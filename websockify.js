@@ -16,7 +16,6 @@
 
 
 var WebSocketServer = require('ws').Server,
-
     sessionStore, express, wsServer, target_host, target_port;
 
 var targets = [];

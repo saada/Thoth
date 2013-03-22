@@ -10,6 +10,8 @@
     "webrtc.io":"*",
     "open":"*",
     "cookie":"*",
+    "sqlite3": ">=2.0.0",
+    "sequelize":"*",
     "connect":"*",
     "ws":"https://github.com/kanaka/ws/tarball/master"
   },

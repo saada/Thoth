@@ -1,4 +1,5 @@
 net = require('net');
+// GLOBAL.db
 
 exports.connectVNC = function(socket, target_port, target_host) {
 	// START VNC CONNECTION

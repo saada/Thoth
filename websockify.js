@@ -15,8 +15,7 @@
 //     npm link ./ws
 
 
-var net = require('net'),
-    WebSocketServer = require('ws').Server,
+var WebSocketServer = require('ws').Server,
 
     sessionStore, express, wsServer, target_host, target_port;
 

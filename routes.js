@@ -40,7 +40,7 @@ exports.logout = function(req, res){
 };
 
 exports.chat = function(req, res){
-  res.render('chat', { title: 'Welcome to Chat' });
+  res.render('chat', { title: 'VLAB - Topics' });
 };
 
 exports.index = function (req, res) {
@@ -49,7 +49,7 @@ exports.index = function (req, res) {
 		res.redirect('/chat');
 		return;
 	}
-	res.render('index', { title: 'Welcome to VLAB' });
+	res.render('index', { title: 'VLAB - Homepage' });
 };
 
 exports.bad = function (req, res){

@@ -1,9 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('User', {
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING
+  return sequelize.define('Email', {
+    email: {
+        type: DataTypes.TEXT
+        // validate:{
+        //     isEmail: true
+        // }
+    }
   }, {
     // don't add the timestamp attributes (updatedAt, createdAt)
     timestamps: true,

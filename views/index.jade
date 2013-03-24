@@ -19,7 +19,7 @@ block content
 					url: '/login',
 					type: 'POST',
 					dataType: 'json',
-					data: {user: $('#user').val(), password: $('#password').val() },
+					data: {username: $('#user').val(), password: $('#password').val() },
 					success: function(data, textStatus, xhr) {
 						console.log(data);
 						window.location.href = data;

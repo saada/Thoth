@@ -53,6 +53,7 @@ new_client = function(client) {
     if (authSocket(client)) {
         target_port = "5901";
         target_host = "10.0.2.164";
+
         require('./vncController').connectVNC(client, target_port, target_host);
     }
     else

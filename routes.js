@@ -1,12 +1,12 @@
 // authentication
 var authenticate = function(user, password){
 	var users = [
-		{user:'larry', password:'larry'},
-		{user:'moody', password:'moody'}
+		{username:'larry', password:'larry'},
+		{username:'moody', password:'moody'}
 	];
 	for (var i = 0; i < users.length; i++) {
 		_user = users[i];
-		if(_user.user === user && _user.password === password)
+		if(_user.username === user && _user.password === password)
 			return _user;
 	}
 	return false;
@@ -14,7 +14,7 @@ var authenticate = function(user, password){
 
 // authorization
 exports.checkAuth = function (req, res, next) {
-  if (!req.session.user) {
+  if (!req.session.username) {
     res.send('You are not authorized to view this page');
   } else {
     next();
@@ -24,9 +24,9 @@ exports.checkAuth = function (req, res, next) {
 // Login
 exports.login = function(req, res){
 	var post = req.body;
-	var authedUser = authenticate(post.user, post.password);
+	var authedUser = authenticate(post.username, post.password);
 	if (authedUser) {
-		req.session.user = authedUser.user;
+		req.session.username = authedUser.username;
 		sendResponse(res, "/chat");
 	} else {
 		sendResponse(res, "/bad");
@@ -34,7 +34,7 @@ exports.login = function(req, res){
 };
 
 exports.logout = function(req, res){
-	delete req.session.user;
+	delete req.session.username;
 	req.session = null;
 	sendResponse(res, '/');
 };
@@ -44,7 +44,7 @@ exports.chat = function(req, res){
 };
 
 exports.index = function (req, res) {
-	if (req.session.user)
+	if (req.session.username)
 	{
 		res.redirect('/chat');
 		return;

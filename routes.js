@@ -2,7 +2,10 @@
 var authenticate = function(user, password){
 	var users = [
 		{username:'larry', password:'larry'},
-		{username:'moody', password:'moody'}
+		{username:'moody', password:'moody'},
+		{username:'tom', password:'tom'},
+		{username:'wenxian', password:'wenxian'},
+		{username:'drhuang', password:'drhuang'}
 	];
 	for (var i = 0; i < users.length; i++) {
 		_user = users[i];
@@ -40,11 +43,11 @@ exports.logout = function(req, res){
 };
 
 exports.topic = function(req, res){
-  res.render('topic', { title: 'VLAB - '+req.params.topic, topic:req.params.topic });
+  res.render('topic', {username:req.session.username, title: 'VLAB - '+req.params.topic, topic:req.params.topic });
 };
 
 exports.topics = function(req, res){
-  res.render('topics', { title: 'VLAB - Topics' });
+  res.render('topics', {username:req.session.username, title: 'VLAB - Topics' });
 };
 
 exports.index = function (req, res) {

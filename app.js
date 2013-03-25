@@ -29,9 +29,9 @@ web.listen(conf.HTTP_PORT);
 console.log('HTTP server running on port %d...',conf.HTTP_PORT);
 
 // Launch websock
-ws.listen(web);	// upgrade http to websocket
-console.log('Websockify server running on port %d...',conf.HTTP_PORT);
+//ws.listen(web);	// upgrade http to websocket
+//console.log('Websockify server running on port %d...',conf.HTTP_PORT);
 
 // Launch webRTC
-webRTC.listen(conf.WEBRTC_PORT);
-console.log('WebRTC server running on port %d...',conf.WEBRTC_PORT);
+webRTC.listen(web.server);
+console.log('WebRTC server running on port %d...',conf.HTTP_PORT);

@@ -8,6 +8,12 @@ block navbar
 		}
 		.sidebar-nav {
 		padding: 9px 0;
+		overflow-y: scroll;
+		max-height:430px;
+		}
+		.span8{
+		overflow-y: scroll;
+		max-height:430px;
 		}
 		.center {
 		text-align: center;
@@ -16,17 +22,12 @@ block navbar
 		box-shadow: 10px 10px 5px red;
 		}
 		.background {
-		background-color: #FFCC66;
+		background-color: BurlyWood;
 		}
 		.line {
 		border: 0; height: 0; /* Firefox... */ box-shadow: 0 0 10px 1px #99CC66;
 		color: #99CC66;
 		background-color: #99CC66;
-		}
-		.image {
-		width: 100%;
-		height:auto;
-		clip:rect(50%,50%,50%,50%);
 		}
 		.middleimage {
 		width: 100%;
@@ -43,6 +44,23 @@ block navbar
 		.hovered{
 			box-shadow: 7px 7px 5px rgba(1,1,1,0.1);
 		}
+		.image {
+			//- width: 100%;
+			//- height:auto;
+			background-repeat: no-repeat;
+			background-position: -150px -100px;
+			width: 100%;
+			height: 150px;
+		}
+		#image1{
+			background-image:url('http://www.cis.upenn.edu/~mkearns/teaching/NetworkedLife/bgc-sci.jpg');
+		}
+		#image2{
+			background-image:url('http://www.jacobsschool.ucsd.edu/uploads/news_release/2007/Rescaled_2k.jpg');
+		}
+		#image3{
+			background-image:url('http://cinet.vbi.vt.edu/cinet_new/sites/all/themes/professional_theme/images/slide-image-2.jpg');
+		}
 	script(type='text/javascript')
 		function changeTitle(setting) {
 			var title = '';
@@ -56,12 +74,12 @@ block navbar
 			if (setting == '501') {
 				title = 'CSE501';
 				page = 'This is description for CSE501';
-				source = 'https://khan-academy.appspot.com/images/featured-actions/mona-lisa.jpg';
+				source = 'http://www.jacobsschool.ucsd.edu/uploads/news_release/2007/Rescaled_2k.jpg';
 			}
 			if (setting == '502') {
 				title = 'CSE502';
 				page = 'This is description for CSE502';
-				source = 'https://khan-academy.appspot.com/images/knowledge-map-derivative-intuition.png';
+				source = 'http://cinet.vbi.vt.edu/cinet_new/sites/all/themes/professional_theme/images/slide-image-2.jpg';
 			}
 			if (title != '') {
 				$('#title').text(title);
@@ -85,9 +103,11 @@ block navbar
 					span.icon-bar
 				a.brand(href='#') V-Lab
 				.nav-collapse.collapse
-					p.navbar-text.pull-right
-						| Logged in as
-						a.navbar-link(href='#') Username
+					p.navbar-text.pull-right(style="margin:0em 0.5em 0em;")
+						| Logged in as 
+						a.navbar-link(href='#') Username 
+					a.btn.btn-info.pull-right#logoutBtn(href="/logout",style="margin:0.7em 0.5em 1em;") 
+						| Logout
 					ul.nav
 						li.dropdown
 							a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -138,21 +158,21 @@ block navbar
 				.well.sidebar-nav
 					ul.nav.nav-list
 						.topic.background(onclick='changeTitle(\'500\')')
-							img.image(src='http://www.cis.upenn.edu/~mkearns/teaching/NetworkedLife/bgc-sci.jpg', alt='Viturl Machine Image')
+							#image1.image
 							.center
 								h2 CSE500
 								p This is description for CSE500
 								br
 						br
 						.topic.background(onclick='changeTitle(\'501\')')
-							img.image(src='https://khan-academy.appspot.com/images/featured-actions/mona-lisa.jpg', alt='Viturl Machine Image')
+							#image2.image
 							.center
 								h2 CSE501
 								p This is description for CSE501
 								br
 						br
 						.topic.background(onclick='changeTitle(\'502\')')
-							img.image(src='https://khan-academy.appspot.com/images/knowledge-map-derivative-intuition.png', alt='Viturl Machine Image')
+							#image3.image
 							.center
 								h2 CSE502
 								p This is description for CSE502
@@ -178,9 +198,18 @@ block navbar
 				br
 
 	script
+		$('#image1').trigger('click');
 		$(".topic").hover(function() {
 			$(this).addClass("hovered");
+			$(this).find('.image').stop().animate({
+				'background-position-x': '-250px',
+				'background-position-y': '-150px'
+			}, 500);
 		},
 		function() {
 			$(this).removeClass("hovered");
+			$(this).find('.image').stop().animate({
+				'background-position-x': '-150px',
+				'background-position-y': '-50px'
+			}, 500);
 		});

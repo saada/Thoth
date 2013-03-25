@@ -36,7 +36,7 @@ exports.login = function(req, res){
 exports.logout = function(req, res){
 	delete req.session.username;
 	req.session = null;
-	sendResponse(res, '/');
+	res.redirect('/');
 };
 
 exports.topic = function(req, res){

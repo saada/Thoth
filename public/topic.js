@@ -41,12 +41,6 @@ $(function(){
 		}, 0);
 	}
 
-	$('#logoutBtn').click(function(e) {
-		$.get('/logout', function(data, textStatus, xhr) {
-			window.location.href = data;
-		});
-	});
-
 	// Video Conferencing code
 	$('.remotevideo').parent().fadeOut(1000,'swing',function() { $(this).remove(); });
 	// Close socket if not null

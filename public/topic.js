@@ -64,7 +64,7 @@ $(function(){
 	rtc.on('add remote stream',function(stream, id){
 		console.log('add remote stream');
 		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
-		var vid = div.hide().append('<video id='+id+' class="remotevideo" autoplay></video>').children().first();
+		var vid = div.hide().append('<video id='+id+' class="remotevideo" autoplay controls></video>').children().first();
 
 		centralizeStreamOnClick(vid);
 
@@ -92,7 +92,7 @@ var getLocalCamera = function(){
 		localstream = stream;
 		// Create video element
 		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
-		var vid = div.hide().append('<video id="myvideo" autoplay src=""></video>').children().first();
+		var vid = div.hide().append('<video id="myvideo" autoplay controls src=""></video>').children().first();
 		centralizeStreamOnClick(vid);
 		// Attach stream
 		rtc.attachStream(localstream, 'myvideo');

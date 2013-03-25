@@ -82,7 +82,13 @@ $(function(){
 	rtc.on('remove_peer_connected', function(data) {
 		console.log('peer disconnected! socketId:'+data.socketId);
 		// remove video element
-		$('#'+data.socketId).parent().fadeOut(1000,'swing',function() { $(this).remove(); });
+		$('#'+data.socketId).parent().fadeOut(1000,'swing',function() {
+			$(this).remove();
+			$('#'+data.socketId).fadeOut(1000,'swing',function() {
+				$(this).remove();
+			});
+		});
+
 	});
 });
 

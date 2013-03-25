@@ -48,51 +48,47 @@ $(function(){
 	});
 
 	// Video Conferencing code
-	$('.room').click(function(e){
-		$('.remotevideo').parent().fadeOut(1000,'swing',function() { $(this).remove(); });
-		$('#roominfo').html('You are in room '+$(e.target).html());
-		// Close socket if not null
-		if(rtc !==null && rtc._socket !== null){
-			closeRTC();
-		}
-		// Clone new instance of rtc
-		rtc = jQuery.extend(true, {}, _rtc);
-		rtc.connect('ws://'+window.location.host.split(':')[0]+':4000', $(e.target).html());
-		console.log('Connecting via WebRTC to ws://'+window.location.host.split(':')[0]+':4000 in room: '+$(e.target).html());
+	$('.remotevideo').parent().fadeOut(1000,'swing',function() { $(this).remove(); });
+	// Close socket if not null
+	if(rtc !==null && rtc._socket !== null){
+		closeRTC();
+	}
+	// Clone new instance of rtc
+	rtc = jQuery.extend(true, {}, _rtc);
+	rtc.connect('ws://'+window.location.host.split(':')[0]+':4000', $('.brand').html());
+	console.log('Connecting via WebRTC to ws://'+window.location.host.split(':')[0]+':4000 in room: '+$('.brand').html());
 
-		if(localstream === null)
-		{
-			getLocalCamera();
-		}
+	if(localstream === null)
+	{
+		getLocalCamera();
+	}
 
-		rtc.on('ready',function(){
-			console.log("READY EVENT");
-		});
-		//on add remote stream
-		rtc.on('add remote stream',function(stream, id){
-			console.log('add remote stream');
-			var div = $('.videos').prepend('<div class="video row"></div>').children().first();
-			var vid = div.hide().append('<video id='+id+' class="remotevideo" autoplay></video>').children().first();
+	rtc.on('ready',function(){
+		console.log("READY EVENT");
+	});
+	//on add remote stream
+	rtc.on('add remote stream',function(stream, id){
+		console.log('add remote stream');
+		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
+		var vid = div.hide().append('<video id='+id+' class="remotevideo" autoplay></video>').children().first();
 
-			centralizeStreamOnClick(vid);
+		centralizeStreamOnClick(vid);
 
-			rtc.attachStream(stream, id);
-			console.log('new remote stream id is: ' + id);
+		rtc.attachStream(stream, id);
+		console.log('new remote stream id is: ' + id);
 
-			animateVideo(div,vid);
-		});
+		animateVideo(div,vid);
+	});
 
-		// close_stream
-		rtc.on('close_stream',function(data){
-			console.log('close stream');
-			console.log(data);
-		});
-		rtc.on('remove_peer_connected', function(data) {
-			console.log('peer disconnected! socketId:'+data.socketId);
-			// remove video element
-			$('#'+data.socketId).parent().fadeOut(1000,'swing',function() { $(this).remove(); });
-		});
-
+	// close_stream
+	rtc.on('close_stream',function(data){
+		console.log('close stream');
+		console.log(data);
+	});
+	rtc.on('remove_peer_connected', function(data) {
+		console.log('peer disconnected! socketId:'+data.socketId);
+		// remove video element
+		$('#'+data.socketId).parent().fadeOut(1000,'swing',function() { $(this).remove(); });
 	});
 });
 

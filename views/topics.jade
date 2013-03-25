@@ -1,0 +1,186 @@
+extends layout
+
+block navbar
+	style(type='text/css')
+		body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+		}
+		.sidebar-nav {
+		padding: 9px 0;
+		}
+		.center {
+		text-align: center;
+		}
+		.shadow {
+		box-shadow: 10px 10px 5px red;
+		}
+		.background {
+		background-color: #FFCC66;
+		}
+		.line {
+		border: 0; height: 0; /* Firefox... */ box-shadow: 0 0 10px 1px #99CC66;
+		color: #99CC66;
+		background-color: #99CC66;
+		}
+		.image {
+		width: 100%;
+		height:auto;
+		clip:rect(50%,50%,50%,50%);
+		}
+		.middleimage {
+		width: 100%;
+		height:auto;
+		}
+		@media (max-width: 980px) {
+		/* Enable use of floated navbar text */
+		.navbar-text.pull-right {
+		float: none;
+		padding-left: 5px;
+		padding-right: 5px;
+		}
+		}
+		.hovered{
+			box-shadow: 7px 7px 5px rgba(1,1,1,0.1);
+		}
+	script(type='text/javascript')
+		function changeTitle(setting) {
+			var title = '';
+			var page = '';
+			var source = ''
+			if (setting == '500') {
+				title = 'CSE500';
+				page = 'This is description for CSE500';
+				source = 'http://www.cis.upenn.edu/~mkearns/teaching/NetworkedLife/bgc-sci.jpg'
+			}
+			if (setting == '501') {
+				title = 'CSE501';
+				page = 'This is description for CSE501';
+				source = 'https://khan-academy.appspot.com/images/featured-actions/mona-lisa.jpg';
+			}
+			if (setting == '502') {
+				title = 'CSE502';
+				page = 'This is description for CSE502';
+				source = 'https://khan-academy.appspot.com/images/knowledge-map-derivative-intuition.png';
+			}
+			if (title != '') {
+				$('#title').text(title);
+				$('#page').text(page
+					+": Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+					+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+					+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo"
+					+"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+					+"cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non"
+					+"proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+				$('#image').attr("src", source);
+				$('#joinBtn').prop('href', '/topics/'+title);
+			}
+		}
+	.navbar.navbar-inverse.navbar-fixed-top
+		.navbar-inner
+			.container-fluid
+				button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.brand(href='#') V-Lab
+				.nav-collapse.collapse
+					p.navbar-text.pull-right
+						| Logged in as
+						a.navbar-link(href='#') Username
+					ul.nav
+						li.dropdown
+							a.dropdown-toggle(href='#', data-toggle='dropdown')
+								| Share
+								b.caret
+							ul.dropdown-menu
+								li.dropdown-submenu
+									a.dropdown-toggle(href='#', data-toggle='dropdown') Dr.Huang
+									ul.dropdown-menu
+										li
+											a(href='#') VM1
+										li
+											a(href='#') VM2
+										li
+											a(href='#') VM3
+								li.dropdown-submenu
+									a.dropdown-toggle(href='#', data-toggle='dropdown') Larry
+									ul.dropdown-menu
+										li
+											a(href='#') VM1
+										li
+											a(href='#') VM2
+										li
+											a(href='#') VM3
+								li.dropdown-submenu
+									a.dropdown-toggle(href='#', data-toggle='dropdown') Moody
+									ul.dropdown-menu
+										li
+											a(href='#') VM1
+										li
+											a(href='#') VM2
+										li
+											a(href='#') VM3
+						li.dropdown
+							a.dropdown-toggle(data-toggle='dropdown', href='#')
+								| Documentation
+								b.caret
+							ul.dropdown-menu
+								li
+									a(href='#') User
+								li
+									a(href='#') VMs
+						li
+							a(href='#') Help
+	.container-fluid
+		.row-fluid
+			.span4
+				.well.sidebar-nav
+					ul.nav.nav-list
+						.topic.background(onclick='changeTitle(\'500\')')
+							img.image(src='http://www.cis.upenn.edu/~mkearns/teaching/NetworkedLife/bgc-sci.jpg', alt='Viturl Machine Image')
+							.center
+								h2 CSE500
+								p This is description for CSE500
+								br
+						br
+						.topic.background(onclick='changeTitle(\'501\')')
+							img.image(src='https://khan-academy.appspot.com/images/featured-actions/mona-lisa.jpg', alt='Viturl Machine Image')
+							.center
+								h2 CSE501
+								p This is description for CSE501
+								br
+						br
+						.topic.background(onclick='changeTitle(\'502\')')
+							img.image(src='https://khan-academy.appspot.com/images/knowledge-map-derivative-intuition.png', alt='Viturl Machine Image')
+							.center
+								h2 CSE502
+								p This is description for CSE502
+								br
+			.span8
+				section
+					h1#title CSE CLASS
+					p#page Class description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						| tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						| quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						| consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						| cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						| proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				br
+				div
+					.span9
+						hr
+					a.btn.btn-success.pull-right#joinBtn(href='#') Join the Class
+				br
+				br
+				img#image.middleimage(src='assets/img/class.jpg')
+				br
+				br
+
+	script
+		$(".topic").hover(function() {
+			$(this).addClass("hovered");
+		},
+		function() {
+			$(this).removeClass("hovered");
+		});

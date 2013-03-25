@@ -27,7 +27,7 @@ exports.login = function(req, res){
 	var authedUser = authenticate(post.username, post.password);
 	if (authedUser) {
 		req.session.username = authedUser.username;
-		sendResponse(res, "/topic");
+		sendResponse(res, "/topics");
 	} else {
 		sendResponse(res, "/bad");
 	}
@@ -40,13 +40,17 @@ exports.logout = function(req, res){
 };
 
 exports.topic = function(req, res){
-  res.render('topic', { title: 'VLAB - Topics' });
+  res.render('topic', { title: 'VLAB - '+req.params.topic, topic:req.params.topic });
+};
+
+exports.topics = function(req, res){
+  res.render('topics', { title: 'VLAB - Topics' });
 };
 
 exports.index = function (req, res) {
 	if (req.session.username)
 	{
-		res.redirect('/topic');
+		res.redirect('/topics');
 		return;
 	}
 	res.render('index', { title: 'VLAB - Homepage' });

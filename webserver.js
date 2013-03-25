@@ -32,7 +32,8 @@ app.configure('development', function(){
 
 // routes
 app.get('/', routes.index);
-app.get('/topic', routes.checkAuth, routes.topic);
+app.get('/topics', routes.checkAuth, routes.topics);
+app.get('/topics/:topic', routes.checkAuth, routes.topic);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 app.use(routes.bad);

@@ -8,13 +8,17 @@ block navbar
 					span.icon-bar
 					span.icon-bar
 					span.icon-bar
-				a.brand(href='#') Class
+				a.brand(href='#')=topic
 				.nav-collapse.collapse
 					a(href="/vnc/vnc.html", target="_blank") NoVNC
-					a.btn.btn-info.pull-right#logoutBtn(style="margin-left:1em") Logout
-					p.navbar-text.pull-right
+					p.navbar-text.pull-right(style="margin:0em 0.5em 0em;")
 						| Logged in as 
 						a.navbar-link(href='#') Username
+					a.btn.btn-info.pull-right#logoutBtn(style="margin:0.7em 0.5em 1em;") 
+						| Logout
+					a.btn.btn-success.pull-right#backBtn(href='/topics', style="margin:0.7em 0.5em 1em;") 
+						i.icon-circle-arrow-left.icon-white
+						| Back to Topics
 					ul.nav
 						li.dropdown
 							a.dropdown-toggle(data-toggle='dropdown', href='#')
@@ -45,15 +49,16 @@ block content
 	.row-fluid
 			.span3
 				#navbar.well.sidebar-nav
-					ul.nav.nav-list
-						label.checkbox.inline
-							input#videoOn(type='checkbox', value='videoOn', checked='yes')
-							| Video
-						li.divider
-						div
-							.videoUiWrapper.thumbnail
-								video#huang(src='', style='width: 100%; max-width: 200%;', autoplay='autoplay')
-						li.nav-header Dr. Huang
+					.videos
+					//- ul.nav.nav-list
+					//- 	label.checkbox.inline
+					//- 		input#videoOn(type='checkbox', value='videoOn', checked='yes')
+					//- 		| Video
+					//- 	li.divider
+					//- 	div
+					//- 		.videoUiWrapper.thumbnail
+					//- 			video#huang(src='', style='width: 100%; max-width: 200%;', autoplay='autoplay')
+					//- 	li.nav-header Dr. Huang
 						
 			.span7
 				//- div
@@ -69,8 +74,11 @@ block content
 					.center
 						h4 VM1
 						canvas#vm1.icon
+	.navbar-fixed-bottom
 	.row
-		include webrtc
+		//- include webrtc
 	.row
 		//- include vnc
 	
+	script(src='/webrtc.io.js')
+	script(src='/topic.js')

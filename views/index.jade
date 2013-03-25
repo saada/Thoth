@@ -2,7 +2,7 @@ extends layout
 
 block content
 	.hero-unit
-		h1= title
+		h1 Welcome to VLAB
 	.form
 		form
 			label Username:
@@ -14,6 +14,13 @@ block content
 
 	script(type="text/javascript")
 		$(function(){
+			$('#user').focus();
+			$('input').keypress(function (e) {
+				if (e.which == 13) {
+					$('.btn').trigger('click');
+					e.preventDefault();
+				}
+			});
 			$('.btn').click(function(){
 				$.ajax({
 					url: '/login',
@@ -28,4 +35,3 @@ block content
 			});
 		});
 
-		

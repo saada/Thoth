@@ -3,16 +3,30 @@
 @= WebRTC CSS
 @================================================================================
 */
+
+body{
+  padding-top: 5%;
+}
+
 .container{
-  width: 80%;
+  width: 100%;
 }
 
 .hero-unit, .form{
   text-align: center;
 }
 
+.sidebar-nav{
+  height:100%;
+  /*min-height:100%;*/
+}
+
 .resize_iframe{
   
+}
+
+footer{
+  text-align: center;
 }
 
 .centerStream{

@@ -1,0 +1,76 @@
+extends layout
+
+block navbar
+	.navbar.navbar-inverse.navbar-fixed-top
+		.navbar-inner
+			.container.container-fluid
+				button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.brand(href='#') Class
+				.nav-collapse.collapse
+					a(href="/vnc/vnc.html", target="_blank") NoVNC
+					a.btn.btn-info.pull-right#logoutBtn(style="margin-left:1em") Logout
+					p.navbar-text.pull-right
+						| Logged in as 
+						a.navbar-link(href='#') Username
+					ul.nav
+						li.dropdown
+							a.dropdown-toggle(data-toggle='dropdown', href='#')
+								| VM Sharing
+								b.caret
+							ul.dropdown-menu
+								li
+									a(href='#', onclick='VMshare()') VM1
+								li
+									a(href='#', onclick='VMshare()') VM2
+								li
+									a(href='#', onclick='VMshare()') VM3
+						li.dropdown
+							a.dropdown-toggle(data-toggle='dropdown', href='#')
+								| Documentation
+								b.caret
+							ul.dropdown-menu
+								li
+									a(href='#') User
+								li
+									a(href='#') VMs
+						li
+							a(href='#') Help
+	
+
+
+block content
+	.row-fluid
+			.span3
+				#navbar.well.sidebar-nav
+					ul.nav.nav-list
+						label.checkbox.inline
+							input#videoOn(type='checkbox', value='videoOn', checked='yes')
+							| Video
+						li.divider
+						div
+							.videoUiWrapper.thumbnail
+								video#huang(src='', style='width: 100%; max-width: 200%;', autoplay='autoplay')
+						li.nav-header Dr. Huang
+						
+			.span7
+				//- div
+				//- 	h2 
+					//- .videoUiWrapper.thumbnail
+					//- 	video#demo1(width='700px', height='400px')
+				.centerStream
+					h2(style="text-align:center;line-height:350px;") Network Configuration & Video Conferencing
+			.span2
+				#navbar2.well.sidebar-nav
+					h2 Your VMs
+					hr
+					.center
+						h4 VM1
+						canvas#vm1.icon
+	.row
+		include webrtc
+	.row
+		//- include vnc
+	

@@ -18,7 +18,8 @@ html(lang="en")
 				link(rel='apple-touch-icon', href='/VNC/images/screen_57x57.png')
 				//- Bootstrap
 				//- link(href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css", rel="stylesheet")
-				link(href="//netdna.bootstrapcdn.com/bootswatch/2.3.0/cosmo/bootstrap.min.css", rel="stylesheet")
+				link(href="//netdna.bootstrapcdn.com/bootswatch/2.3.1/cosmo/bootstrap.min.css", rel="stylesheet")
+				link(href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css', rel='stylesheet')
 				//- jQuery UI
 				link(rel="stylesheet", type="text/css", href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css")
 				//- Our custom css file
@@ -27,6 +28,14 @@ html(lang="en")
 			block scripts
 				script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
 				script(type="text/javascript", src="http://code.jquery.com/ui/1.10.1/jquery-ui.js")
+				script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+
 	body
+		block navbar
+
 		.container
 			block content
+			
+		footer
+			hr
+			p ©VLAB: by Mahmoud Saada, Le Xu, Qingyun Li, and Wenxian Yang

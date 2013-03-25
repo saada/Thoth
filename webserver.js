@@ -32,7 +32,7 @@ app.configure('development', function(){
 
 // routes
 app.get('/', routes.index);
-app.get('/chat', routes.checkAuth, routes.chat);
+app.get('/topic', routes.checkAuth, routes.topic);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 app.use(routes.bad);

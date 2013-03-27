@@ -197,6 +197,7 @@ var closeRTC = function(){
 @================================================================================
 */
 $(function() {
+	$('.resize_iframe iframe').attr('src', "/vnc/vnc_auto.html?host="+window.location.host+"&port=80&password=123456&path=");
 	// $('.resize_iframe').resizable({
 	// 	aspectRatio:true,
 	// 	side:{

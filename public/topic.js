@@ -49,8 +49,8 @@ $(function(){
 	}
 	// Clone new instance of rtc
 	rtc = jQuery.extend(true, {}, _rtc);
-	// rtc.connect('ws://'+window.location.host.split(':')[0]+':80', $('.brand').html());
-	console.log('Connecting via WebRTC to ws://'+window.location.host.split(':')[0]+':80 in room: '+$('.brand').html());
+	rtc.connect('ws://'+window.location.host.split(':')[0]+':4000', $('.brand').html());
+	console.log('Connecting via WebRTC to ws://'+window.location.host.split(':')[0]+':4000 in room: '+$('.brand').html());
 
 	if(localstream === null)
 	{

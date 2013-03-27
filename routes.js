@@ -18,7 +18,7 @@ var authenticate = function(user, password){
 // authorization
 exports.checkAuth = function (req, res, next) {
   if (!req.session.username) {
-    res.send('You are not authorized to view this page');
+    res.send('You are not authorized to view this page! Please <a href="/">Login!</a>');
   } else {
     next();
   }

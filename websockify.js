@@ -86,7 +86,8 @@ selectProtocol = function(protocols, callback) {
 exports.listen = function(web) {
     sessionStore = web.sessionStore;
     wsServer = new WebSocketServer({
-        server: web.server,
+        // server: web.server,
+        port:web,
         handleProtocols: selectProtocol
     });
     wsServer.on('connection', new_client);

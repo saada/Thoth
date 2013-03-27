@@ -79,6 +79,7 @@ block content
 		//- include webrtc
 	.row
 		//- include vnc
-	
+	.resize_iframe
+		iframe(src="/vnc/vnc_auto.html?host=localhost&port=4000&password=123456&path=", style="width:100%;height:100%;min-height:400px;", frameborder="0")
 	script(src='/webrtc.io.js')
 	script(src='/topic.js')

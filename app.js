@@ -33,5 +33,7 @@ ws.listen(web);	// upgrade http to websocket
 console.log('Websockify server running on port %d...',conf.HTTP_PORT);
 
 // Launch webRTC
-webRTC.listen(4000);
+var web2 = require('./webserver2');
+web2.listen(4000);
+webRTC.listen(web2.server);
 console.log('WebRTC server running on port %d...',4000);

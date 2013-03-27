@@ -137,9 +137,12 @@ var animateVideo = function(div,vid) {
 		}
 		else if(count >= 500)	//500*20 = 10000ms = 10s
 		{
+			if(vid.is('#myvideo'))
+				alert('Your webcam is taking too long to load...');
+			else
+				alert('Remote webcam failed to connect...');
 			div.remove();
 			vid.remove();
-			alert('Your webcam is taking too long to load');
 			return;
 		}
 		count = 0;

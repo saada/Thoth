@@ -49,37 +49,32 @@ block content
 	.row-fluid
 			.span3
 				#navbar.well.sidebar-nav
-					.videos
-					//- ul.nav.nav-list
-					//- 	label.checkbox.inline
-					//- 		input#videoOn(type='checkbox', value='videoOn', checked='yes')
-					//- 		| Video
-					//- 	li.divider
-					//- 	div
-					//- 		.videoUiWrapper.thumbnail
-					//- 			video#huang(src='', style='width: 100%; max-width: 200%;', autoplay='autoplay')
-					//- 	li.nav-header Dr. Huang
+					h2(style="text-align:center") Webcams
+					hr
+					.videos.offset2
+
 						
 			.span7
-				//- div
-				//- 	h2 
-					//- .videoUiWrapper.thumbnail
-					//- 	video#demo1(width='700px', height='400px')
 				.centerStream
 					h2(style="text-align:center;line-height:350px;") Network Configuration & Video Conferencing
 			.span2
 				#navbar2.well.sidebar-nav
-					h2 Your VMs
+					h2(style="text-align:center") Your VMs
 					hr
-					.center
-						h4 VM1
-						canvas#vm1.icon
+					div(style="text-align:center")
+						a#VM1.btn.btn-large.btn-danger VM1
+	.alert.alert-warning.span4
+		a.close(data-dismiss='alert') ×
+		strong Did you know?
+		|  You can resize components from their bottom right corners!
+	br
+
+	.resize_iframe.span12#iframe_wrapper
+		iframe(src="", id="vncIframe", style="", frameborder="0")
 	.navbar-fixed-bottom
 	.row
 		//- include webrtc
 	.row
 		//- include vnc
-	.resize_iframe
-		iframe(src="", style="width:100%;height:100%;min-height:400px;", frameborder="0")
 	script(src='/webrtc.io.js')
 	script(src='/topic.js')

@@ -134,6 +134,7 @@ html {
 #noVNC_container, #noVNC_canvas {
   margin: 0px;
   padding: 0px;
+  display: block;
 }
 
 #noVNC_canvas {

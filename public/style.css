@@ -33,9 +33,37 @@ a.btn{
   box-shadow: 3px 3px 5px rgba(1,1,1,0.2);
 }
 
-.resize_iframe{
-  
+/* SCALE IFRAME */
+.resize_iframe {
+  width: 512px;
+  height: 384px;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid green;
 }
+
+#vncIframe {
+  width: 1024px;
+  height: 768px;
+  border: 1px solid black;
+}
+
+#vncIframe {
+  zoom: 1.07;
+
+  -webkit-transform: scale(0.50);
+  -moz-transform: scale(0.50);
+  -o-transform: scale(0.50);
+  -ms-transform: scale(0.50);
+  transform: scale(0.50);
+
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+/* /SCALE IFRAME */
 
 footer{
   text-align: center;

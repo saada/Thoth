@@ -196,23 +196,61 @@ var closeRTC = function(){
 @= IFRAME
 @================================================================================
 */
+
+function scaleIframe(scale)
+{
+	$('#vncIframe').css({
+		'width': 1024+1024/10,
+		'height': 768+768/10,
+
+		'zoom': 1.07/scale,
+
+		'-webkit-transform': 'scale('+scale+')',
+		'-moz-transform': 'scale('+scale+')',
+		'-o-transform': 'scale('+scale+')',
+		'-ms-transform': 'scale('+scale+')',
+		'transform': 'scale('+scale+')',
+
+		'-webkit-transform-origin': '0 0',
+		'-moz-transform-origin': '0 0',
+		'-o-transform-origin': '0 0',
+		'-ms-transform-origin': '0 0',
+		'transform-origin': '0 0'
+	});
+}
+
 $(function() {
+	// Start the VNC connection
 	$('.resize_iframe iframe').attr('src', "/vnc/vnc_auto.html?host="+window.location.host+"&port=80&password=123456&path=");
-	// $('.resize_iframe').resizable({
-	// 	aspectRatio:true,
-	// 	side:{
-	// 		top:true,
-	// 		left:true,
-	// 		bottom:true,
-	// 		right:true
-	// 	},
-	// 	resize: function(event, ui) {
-	// 		$(".resize_iframe iframe").css({ "height": ui.size.height,"width":ui.size.width});
-	// 	}
-	// });
-	// $('.resize_iframe').click(function(){
-	// 	setTimeout(function() {
-	// 		$(".resize_iframe iframe")[0].contentWindow.focus();
-	// 	}, 100);
-	// });
+	
+	// Show iframe when corresponding button is clicked
+	$('.resize_iframe').hide();
+	$('#VM1').click(function(){
+		// $('.centerStream').html($('#iframe_wrapper'));
+		$('.resize_iframe').toggle();
+		$(this).toggleClass('btn-success');
+	});
+
+	// Resize iframe
+	setTimeout(function () {
+		$('.resize_iframe').resizable({
+			aspectRatio:true,
+			side:{
+				top:true,
+				left:true,
+				bottom:true,
+				right:true
+			},
+			resize: function(event, ui) {
+				scaleIframe(ui.size.width/1024);
+			}
+		});
+	},1000);
+
+	// Set iframe focus to enable keyboard input
+	$('.resize_iframe').hover(function(){console.log('hover');
+		setTimeout(function() {
+			$(".resize_iframe iframe")[0].contentWindow.focus();
+		}, 100);
+	});
 });

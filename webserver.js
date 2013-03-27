@@ -34,6 +34,7 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/topics', routes.checkAuth, routes.topics);
 app.get('/topics/:topic', routes.checkAuth, routes.topic);
+app.get('/mobicloud', routes.checkAuth, routes.mobicloud);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 app.use(routes.bad);

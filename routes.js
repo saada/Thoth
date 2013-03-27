@@ -30,7 +30,7 @@ exports.login = function(req, res){
 	var authedUser = authenticate(post.username, post.password);
 	if (authedUser) {
 		req.session.username = authedUser.username;
-		sendResponse(res, "/topics");
+		sendResponse(res, "/mobicloud");
 	} else {
 		sendResponse(res, "/bad");
 	}
@@ -43,20 +43,24 @@ exports.logout = function(req, res){
 };
 
 exports.topic = function(req, res){
-  res.render('topic', {username:req.session.username, title: 'VLAB - '+req.params.topic, topic:req.params.topic });
+  res.render('topic', {username:req.session.username, title: 'Mobicloud - '+req.params.topic, topic:req.params.topic });
 };
 
 exports.topics = function(req, res){
-  res.render('topics', {username:req.session.username, title: 'VLAB - Topics' });
+  res.render('topics', {username:req.session.username, title: 'Mobicloud - Topics' });
+};
+
+exports.mobicloud = function(req, res){
+  res.render('mobicloud', {username:req.session.username, title: 'Mobicloud - MyVM' });
 };
 
 exports.index = function (req, res) {
 	if (req.session.username)
 	{
-		res.redirect('/topics');
+		res.redirect('/mobicloud');
 		return;
 	}
-	res.render('index', { title: 'VLAB - Homepage' });
+	res.render('index', { title: 'Mobicloud - Homepage' });
 };
 
 exports.bad = function (req, res){

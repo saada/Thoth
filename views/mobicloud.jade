@@ -1,66 +1,6 @@
 extends layout
 
 block navbar
-	style(type='text/css')
-		body {
-		padding-top: 60px;
-		padding-bottom: 40px;
-		}
-		.sidebar-nav {
-		padding: 9px 0;
-		overflow-y: scroll;
-		max-height:435px;
-		}
-		.span8{
-		overflow-y: scroll;
-		max-height:435px;
-		}
-		.center {
-		text-align: center;
-		}
-		.shadow {
-		box-shadow: 10px 10px 5px red;
-		}
-		.background {
-		background-color: BurlyWood;
-		}
-		.line {
-		border: 0; height: 0; /* Firefox... */ box-shadow: 0 0 10px 1px #99CC66;
-		color: #99CC66;
-		background-color: #99CC66;
-		}
-		.middleimage {
-		width: 100%;
-		height:auto;
-		}
-		@media (max-width: 980px) {
-		/* Enable use of floated navbar text */
-		.navbar-text.pull-right {
-		float: none;
-		padding-left: 5px;
-		padding-right: 5px;
-		}
-		}
-		.hovered{
-			box-shadow: 7px 7px 5px rgba(1,1,1,0.1);
-		}
-		.image {
-			//- width: 100%;
-			//- height:auto;
-			background-repeat: no-repeat;
-			background-position: -150px -100px;
-			width: 100%;
-			height: 150px;
-		}
-		.image1{
-			background-image:url('http://www.cis.upenn.edu/~mkearns/teaching/NetworkedLife/bgc-sci.jpg');
-		}
-		.image2{
-			background-image:url('http://www.jacobsschool.ucsd.edu/uploads/news_release/2007/Rescaled_2k.jpg');
-		}
-		.image3{
-			background-image:url('http://cinet.vbi.vt.edu/cinet_new/sites/all/themes/professional_theme/images/slide-image-2.jpg');
-		}
 	script(type='text/javascript')
 		function changeTitle(setting) {
 			var title = '';
@@ -135,101 +75,49 @@ block navbar
 					a.btn.btn-info.pull-right#logoutBtn(href="/logout",style="margin:0.7em 0.5em 1em;") 
 						| Logout
 					ul.nav
-						li
-							a(href='/mobicloud') MyMobicloud
 						li.active
+							a(href='/mobicloud') MyMobicloud
+						li
 							a(href='/topics') V-LAB
 	.container-fluid
 		.row-fluid
 			.span4
 				.well.sidebar-nav
 					ul.nav.nav-list
-						.topic.background(onclick='changeTitle("598")')
-							.image1.image
-							.center
-								h2
-									| CSE598
-									small -- Dr. Yinong Chen
-								p Service-Oriented Computing and Information Management
-								br
+						button.btn.btn-large WebServer
 						hr
-						.topic.background(onclick='changeTitle("545")')
-							.image2.image
-							.center
-								h2
-									| CSE545
-									small -- Dr. Stephen S. Yau
-								p Software Security Lab
-								br
+						button.btn.btn-large OpenID
 						hr
-						.topic.background(onclick='changeTitle("468")')
-							.image3.image
-							.center
-								h2
-									| CSE468/598
-									small -- Dr. Dijiang Huang
-								p Network Service Setup Lab
-								br
+						button.btn.btn-large LDAP Server
 						hr
-						.topic.background(onclick='changeTitle("465")')
-							.image1.image
-							.center
-								h2
-									| CSE465
-									small -- Dr. Gail-Joon Ahn
-								p Information Assurance
-								br
+						button.btn.btn-large XMPP Server
 						hr
-						.topic.background(onclick='changeTitle("545")')
-							.image2.image
-							.center
-								h2
-									| CSE545
-									small -- Dr. Stephen S. Yau
-								p A Web-Based Document Management System Lab
-								br
-						hr
-						.topic.background(onclick='changeTitle("548")')
-							.image3.image
-							.center
-								h2
-									| CSE548
-									small -- Dr. Dijiang Huang
-								p Advanced Computer Network Security
-								br
+
 			.span8
 				section
-					h1#title CSE CLASS
-					p#page Class description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						| tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						| quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						| consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						| cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						| proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					a#detail.btn.btn-warning(href='#') More Details
-					a.btn.btn-success#joinBtn(href='#') Join the Class
-				br
-				.span9
-					hr
-				br
-				br
-				img#image.middleimage(src='assets/img/class.jpg')
-				br
-				br
-	script
-		$('.topic:first').trigger('click');
-		$(".topic").hover(
-			function() {
-				$(this).addClass("hovered");
-				$(this).find('.image').stop().animate({
-					'background-position-x': '-250px',
-					'background-position-y': '-150px'
-				}, 500);
-			},
-			function() {
-				$(this).removeClass("hovered");
-				$(this).find('.image').stop().animate({
-					'background-position-x': '-150px',
-					'background-position-y': '-50px'
-				}, 500);
-		});
+					h1 My Mobicloud VM
+					form.form-horizontal
+						fieldset
+							legend 
+							.control-group
+								.input-prepend
+									span.add-on IP Address
+									input.span5(type='text', value="127.0.0.1")
+								.input-prepend
+									span.add-on Netmask
+									input.span5(type='text', value="255.255.0.0")
+
+							.control-group
+								//- label.control-label(for='selectError') Select ethernet
+								.controls
+								.input-prepend
+									span.add-on Select ethernet
+									select.span5#selectError
+										option eth0
+										option eth1
+										option eth2
+								hr
+								button.btn.btn-large.btn-danger SHUT DOWN
+								button.btn.btn-large.btn-success BOOT UP
+
+					

@@ -83,7 +83,7 @@ selectProtocol = function(protocols, callback) {
     }
 };
 
-exports.listen = function(web) {
+var Class = function(web) {
     sessionStore = web.sessionStore;
     wsServer = new WebSocketServer({
         server: web.server,
@@ -91,4 +91,8 @@ exports.listen = function(web) {
         handleProtocols: selectProtocol
     });
     wsServer.on('connection', new_client);
+    this.server = wsServer;
 };
+
+// exports
+module.exports = Class;

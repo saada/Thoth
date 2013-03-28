@@ -4,6 +4,9 @@
 @================================================================================
 */
 
-exports.HTTP_PORT = 80;
-exports.WEBRTC_PORT = 4000;
-// exports.WEBSOCKET_PORT = 8000;
+module.exports = {
+	PORTS:{
+		WEBSERVER : 80,
+		WEBRTC : 4000
+	}
+};

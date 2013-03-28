@@ -1,9 +1,9 @@
 net = require('net');
 // GLOBAL.db
 
-exports.connectVNC = function(socket, target_port, target_host) {
+var connectVNC = function(socket, target_port, target_host) {
 	// START VNC CONNECTION
-	target = net.createConnection(target_port, target_host, function() {
+	var target = net.createConnection(target_port, target_host, function() {
 		console.log('connected to target');
 
 		socket.on('message', function(msg) {
@@ -41,4 +41,7 @@ exports.connectVNC = function(socket, target_port, target_host) {
 		socket.close();
 	});
 	//console.log('got message: ' + msg);
+	this.target = target;
 };
+
+module.exports = connectVNC;

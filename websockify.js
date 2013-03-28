@@ -14,11 +14,12 @@
 //     git clone https://github.com/kanaka/ws
 //     npm link ./ws
 
+var vncConnection = require('./vncController');
 
 var WebSocketServer = require('ws').Server,
     sessionStore, express, wsServer, target_host, target_port;
 
-var targets = [];
+var targets = {};
 
 authSocket = function(socket){
     var reqCookie = socket.upgradeReq.headers.cookie;   // TRY TO LOOK FOR HANDSHAKE INSTEAD
@@ -54,18 +55,28 @@ new_client = function(client) {
         target_port = "5901";
         target_host = "10.0.2.136";
 
-        require('./vncController').connectVNC(client, target_port, target_host);
+        targets[client] = new vncConnection(client, target_port, target_host).target;
     }
     else
         client.close();
 
     client.on('close', function(code, reason) {
         console.log('WebSocket client disconnected: ' + code + ' [' + reason + ']');
-        target.end();
+        if(targets[client]){
+            console.log(targets);
+            targets[client].end();
+            delete targets[client];
+            console.log(targets);
+        }
     });
     client.on('error', function(a) {
         console.log('WebSocket client error: ' + a);
-        target.end();
+        if(targets[client]){
+            console.log(targets);
+            targets[client].end();
+            delete targets[client];
+            console.log(targets);
+        }
     });
 };
 

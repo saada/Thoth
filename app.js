@@ -13,7 +13,7 @@ console.log('o        o         o      o     +\n');
 @= MAIN APP
 @================================================================================
 */
-db = require('./db/db').db();
+// db = require('./db/db').db();
 // Custom Modules
 var conf   = require('./config');
 var httpServer = require('./webserver');

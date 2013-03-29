@@ -223,12 +223,17 @@ function scaleIframe(scale)
 }
 
 $(function() {
-	
 	// Show iframe when corresponding button is clicked
 	$('.resize_iframe').hide();
 	$('#VM1').click(function(){
 		// Start the VNC connection
-		$('.resize_iframe iframe').attr('src', "/vnc/vnc_auto.html?host="+window.location.host+"&port=80&password=123456&path=");
+		$('.resize_iframe iframe').attr('src', function(idx, oldAttr){
+			console.log(oldAttr);
+			if(!oldAttr)
+				return "/vnc/vnc_auto.html?host="+window.location.host+"&port=80&password=123456&path=";
+			else
+				return "";
+		});
 		// $('.centerStream').html($('#iframe_wrapper'));
 		$('.resize_iframe').toggle();
 		$(this).toggleClass('btn-success');

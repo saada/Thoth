@@ -47,8 +47,8 @@ h2 {
 	padding-left:4px;
 	background-image:url('../images/sidebar_bg.gif');
 }
-/*
-#graphContainer{
+
+/*#graphContainer{
 	position:absolute;
 	top:36px;
 	left:60px;
@@ -56,14 +56,14 @@ h2 {
 	right:0px;
 	background-image:url('../images/grid.gif');
 	cursor:default;
-}
-*/
+}*/
+
 #graphContainer{
 	position:absolute;
-	top:36px;
-	left:-35px;
-	bottom:0px;
-	right:0px;
+	top:28px;
+	left:48px;
+	bottom:0;
+	right:0;
 	background-image:url('../images/grid.gif');
 	cursor:default;
 }

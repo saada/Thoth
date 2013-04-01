@@ -15,9 +15,8 @@ requirejs.config({
     }
 });
 
-require(["jquery"],
-function(){
-	
+require(["jquery"], function(){
+
 	// Load Widgets
 	$(function() {
 

@@ -47,30 +47,39 @@ block navbar
 
 block content
 	.row-fluid
-			.span3
+			.span2
 				#navbar.well.sidebar-nav
 					h2(style="text-align:center") Webcams
 					hr
 					.videos.offset2
 
 						
-			.span7
+			.span8
 				.centerStream
 					h2(style="text-align:center;line-height:350px;") Network Configuration & Video Conferencing
+
 			.span2
-				#navbar2.well.sidebar-nav
-					h2(style="text-align:center") Your VMs
+				#navbar2.well.span12.sidebar-nav
+					h4(style="text-align:center") Cloud Resources
 					hr
-					div(style="text-align:center")
-						a#VM1.btn.btn-large.btn-danger VM1
+					//- .span8(style="text-align:center")
+					a#resourceMap.vm.span11.btn.btn-large.btn-info Resource Map
+					a#VM1.vm.span11.btn.btn-large.btn-danger 
+						i.icon-hdd.icon-white
+						| VM1
+					a#VM2.vm.span11.btn.btn-large.btn-danger
+						i.icon-hdd.icon-white
+						| VM2
+					a#VM3.vm.span11.btn.btn-large.btn-danger
+						i.icon-hdd.icon-white
+						| VM3
+
 	.alert.alert-warning.span4
 		a.close(data-dismiss='alert') ×
 		strong Did you know?
 		|  You can resize components from their bottom right corners!
 	br
 
-	.resize_iframe.span12#iframe_wrapper
-		iframe(src="", id="vncIframe", style="", frameborder="0")
 	.navbar-fixed-bottom
 	.row
 		//- include vnc

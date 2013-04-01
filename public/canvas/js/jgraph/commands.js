@@ -1,8 +1,23 @@
 //This is where the graph app starts up
 $(function() {
-	addCustomButtons();		// prepend custom buttons to toolabar
-	loadGraphs();			// load graph list from database
+	// addCustomButtons();		// prepend custom buttons to toolabar
+	// loadGraphs();			// load graph list from database
 	attachButtonEvents();	// the name is self explanatory
+	// manually call main
+	main(document.getElementById('graphContainer'),
+				document.getElementById('toolbarContainer'),
+				document.getElementById('sidebarContainer'),
+				document.getElementById('statusContainer'));
+	$.ajax({
+    type: "GET",
+		url: "lab1.xml",
+		dataType: "xml",
+		success: function(xml) {
+			initLoad(xmlToString(xml));
+			stopLoadingScreen();
+			// debugger;
+		}
+	});
 });
 
 function addCustomButtons(){
@@ -219,3 +234,16 @@ function attachButtonEvents(){
 			deleteGraph();
 	});
 }
+
+function xmlToString(xmlData) { 
+  var xmlString;
+  //IE
+  if (window.ActiveXObject){
+      xmlString = xmlData.xml;
+  }
+  // code for Mozilla, Firefox, Opera, etc.
+  else{
+      xmlString = (new XMLSerializer()).serializeToString(xmlData);
+  }
+  return xmlString;
+}  

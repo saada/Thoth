@@ -63,14 +63,14 @@ block content
 					h4(style="text-align:center") Cloud Resources
 					hr
 					//- .span8(style="text-align:center")
-					a#resourceMap.vm.span11.btn.btn-large.btn-info Resource Map
-					a#VM1.vm.span11.btn.btn-large.btn-danger 
+					a#resourceMap.span11.btn.btn-large.btn-info Resource Map
+					a#VM1.vm.span11.btn.btn-large.btn-danger(vnc=username+'-vm1')
 						i.icon-hdd.icon-white
 						| VM1
-					a#VM2.vm.span11.btn.btn-large.btn-danger
+					a#VM2.vm.span11.btn.btn-large.btn-danger(vnc=username+'-vm2')
 						i.icon-hdd.icon-white
 						| VM2
-					a#VM3.vm.span11.btn.btn-large.btn-danger
+					a#VM3.vm.span11.btn.btn-large.btn-danger(vnc=username+'-vm3')
 						i.icon-hdd.icon-white
 						| VM3
 

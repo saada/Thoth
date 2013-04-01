@@ -43,6 +43,7 @@ authSocket = function(socket){
 
 // Handle new WebSocket client
 new_client = function(client) {
+    var path = client.upgradeReq.url;
     var clientAddr = client._socket.remoteAddress,
         log;
     log = function(msg) {
@@ -55,6 +56,25 @@ new_client = function(client) {
         target_port = "5901";
         target_host = "10.0.2.136";
 
+        // All available vms
+        VMs = {
+            "user1-vm1":"10.0.2.166",
+            "user1-vm2":"10.0.2.136",
+            "user1-vm3":"10.0.2.165",
+            "user2-vm1":"10.0.2.174",
+            "user2-vm2":"10.0.2.173",
+            "user2-vm3":"10.0.2.175",
+            "user3-vm1":"10.0.2.167",
+            "user3-vm2":"10.0.2.169",
+            "user3-vm3":"10.0.2.168",
+            "user4-vm1":"10.0.2.171",
+            "user4-vm2":"10.0.2.170",
+            "user4-vm3":"10.0.2.172"
+        };
+
+        target_host = VMs[path.substring(1)];
+        if(!target_host)
+            target_host = VMs["user4-vm3"];
         targets[client] = new vncConnection(client, target_port, target_host).target;
     }
     else

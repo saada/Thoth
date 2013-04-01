@@ -228,7 +228,8 @@ $(function() {
 	$('#resourceMap').click(function () {
 		$('.centerStream').html('<iframe src="/canvas/vlab.html" class="span12" height="400" scrolling="no" frameborder="0"></iframe>');
 	});
-	$('#VM1').click(function(){
+	$('.vm').click(function(){
+		var vncPath = $(this).attr('vnc');
 		var vncElement = '<div class="resize_iframe span12" id="iframe_wrapper"><iframe src="" id="vncIframe" style="" frameborder="0"></iframe></div>';
 		$('.centerStream').html(vncElement);
 		$('.resize_iframe').hide();
@@ -237,7 +238,7 @@ $(function() {
 			console.log(oldAttr);
 			if(!oldAttr)
 			{
-				return "/vnc/vnc_auto.html?host="+window.location.host+"&port=80&password=123456&path=";
+				return "/vnc/vnc_auto.html?host="+window.location.host+"&port=80&password=123456&path="+vncPath;
 			}
 			else
 			{

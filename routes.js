@@ -5,7 +5,11 @@ var authenticate = function(user, password){
 		{username:'moody', password:'moody'},
 		{username:'tom', password:'tom'},
 		{username:'wenxian', password:'wenxian'},
-		{username:'drhuang', password:'drhuang'}
+		{username:'drhuang', password:'drhuang'},
+		{username:'user1', password:'user1'},
+		{username:'user2', password:'user2'},
+		{username:'user3', password:'user3'},
+		{username:'user4', password:'user4'}
 	];
 	for (var i = 0; i < users.length; i++) {
 		_user = users[i];

@@ -1,0 +1,27 @@
+TODO NOW:
+ ☐ Implement a Dojo app
+   ☐ Set up layout
+   ☐ Set up widgets
+   ☐ Set up templates
+ ☐ Implement RESTful WebServices
+
+--- ✄ -----------------------
+FUTURE MODIFICATIONS:
+ ☐ Incorporate zooming capability to each widget
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ Refactor canvas to set up vlab layout with widgets @done (13-01-18 18:01)
+ ✔ Fix EDGE inaccurate error messages @done (12-12-07 00:29)
+ ✔ change the cell configuration TYPE to dropdown @done (12-12-07 00:08)
+ ✔ Remove HTML code from XML and generate it dynamically at runtime. @done (12-12-06 23:29)
+ ✔ Fix COPY PASTE name error @done (12-12-06 19:17)
+ ✔ Column that shows all the labs the student is enrolled in on the left hand side of the canvas. @done (12-12-06 18:37)
+ ✔ Also show the graphs that are within the selected lab @done (12-12-06 18:37)
+ ✔ Components can only attach to a SWITCH (VLAN).\ @done (12-12-06 18:37)
+ ✔ Validate names by checking if name exists increase counter @done (12-12-06 18:37)
+ ✔ Validate renaming @done (12-12-06 18:37)
+ ✔ Anything that is not a switch can have up to 4 interfaces (And make this variable configurable) @done (12-12-06 18:37)
+ ✔ Make edges be eth connections and have them hold a dropdown for interface, ip textfield, netmask, etc... @done (12-12-06 18:37)
+ ✔ Mouse over any object will pop up a floating tooltip, disable that tooltip @done (12-12-06 18:37)
+ ✔ Make loading screen appear onCHANGE instead of after ajax call response. I also need to figure out how to do the ajax call ASYNCHRONOUSLY. @done (12-12-06 18:37)
+ ✔ Use jquery fadein and fadeout rather than jgraph's effects for loading screen @done (12-12-06 18:38)

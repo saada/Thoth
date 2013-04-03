@@ -124,6 +124,7 @@ var centralizeStreamOnClick = function(element){
 var count = 0;
 // Takes parent div of video and video element and enables resizable, draggable
 var animateVideo = function(div,vid) {
+	debugger;
 	setTimeout(function(){
 		if(count < 500 && vid.prop('videoHeight')  === 0)
 		{

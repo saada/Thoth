@@ -249,29 +249,27 @@ $(function() {
 		$('.resize_iframe').toggle();
 		// $(this).toggleClass('btn-success');
 
-		
-	});
+		// Resize iframe
+		setTimeout(function () {
+			$('.resize_iframe').resizable({
+				aspectRatio:true,
+				side:{
+					top:true,
+					left:true,
+					bottom:true,
+					right:true
+				},
+				resize: function(event, ui) {
+					scaleIframe(ui.size.width/1024);
+				}
+			});
+		},1000);
 
-	// Resize iframe
-	setTimeout(function () {
-		$('.resize_iframe').resizable({
-			aspectRatio:true,
-			side:{
-				top:true,
-				left:true,
-				bottom:true,
-				right:true
-			},
-			resize: function(event, ui) {
-				scaleIframe(ui.size.width/1024);
-			}
+		// Set iframe focus to enable keyboard input
+		$('.resize_iframe').hover(function(){
+			setTimeout(function() {
+				$(".resize_iframe iframe")[0].contentWindow.focus();
+			}, 100);
 		});
-	},1000);
-
-	// Set iframe focus to enable keyboard input
-	$('.resize_iframe').hover(function(){console.log('hover');
-		setTimeout(function() {
-			$(".resize_iframe iframe")[0].contentWindow.focus();
-		}, 100);
 	});
 });

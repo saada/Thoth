@@ -224,14 +224,15 @@ function scaleIframe(scale)
 
 $(function() {
 	// Show iframe when corresponding button is clicked
-
+	var $centerStream = $('.centerStream');
 	$('#resourceMap').click(function () {
-		$('.centerStream').html('<iframe src="/canvas/vlab.html" class="span12" height="400" scrolling="no" frameborder="0"></iframe>');
+		$centerStream.html('<iframe src="/canvas/vlab.html" class="span12" height="400" scrolling="no" frameborder="0"></iframe>');
 	});
 	$('.vm').click(function(){
 		var vncPath = $(this).attr('vnc');
 		var vncElement = '<div class="resize_iframe span12" id="iframe_wrapper"><iframe src="" id="vncIframe" style="" frameborder="0"></iframe></div>';
-		$('.centerStream').html(vncElement);
+		$centerStream.html(vncElement);
+		scaleIframe(parseInt($centerStream.css('width'))/1024);	//centerStream width
 		$('.resize_iframe').hide();
 		// Start the VNC connection
 		$('.resize_iframe iframe').attr('src', function(idx, oldAttr){
@@ -245,7 +246,7 @@ $(function() {
 				return "";
 			}
 		});
-		$('.centerStream').html($('#iframe_wrapper'));
+		$centerStream.html($('#iframe_wrapper'));
 		$('.resize_iframe').toggle();
 		// $(this).toggleClass('btn-success');
 

@@ -39,8 +39,8 @@ a.vm{
 
 /* SCALE IFRAME */
 .resize_iframe {
-  width: 512px;
-  height: 404px;  /* height = vnc_height/2 + status_bar_height = 384px+20px = 404px */
+  width: 1024px;
+  height: 788px;  /* height = vnc_height/2 + status_bar_height = 384px+20px = 404px */
   padding: 0;
   overflow: hidden;
   border: 2px solid green;
@@ -57,11 +57,11 @@ a.vm{
 #vncIframe {
   zoom: 1.07;
 
-  -webkit-transform: scale(0.50);
-  -moz-transform: scale(0.50);
-  -o-transform: scale(0.50);
-  -ms-transform: scale(0.50);
-  transform: scale(0.50);
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
 
   -webkit-transform-origin: 0 0;
   -moz-transform-origin: 0 0;

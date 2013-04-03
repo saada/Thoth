@@ -100,12 +100,12 @@ video,canvas {
 	position:relative;
 	/*border: 5px solid red;*/
 	overflow: visible;
-   -webkit-transform: rotateY(180deg);
+/*   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg); /* Apply Shadow */
-
+  transform: rotateY(180deg);
+*/
 	/* Apply Shadow */
 	-webkit-box-shadow: 2px 2px 50px rgba(0,0,0,0.6);
 	-moz-box-shadow: 2px 2px 50px rgba(0,0,0,0.6);

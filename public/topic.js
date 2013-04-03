@@ -13,11 +13,7 @@ $(function(){
 	@================================================================================
 	*/
 
-	$('video,canvas').click(function(e) {
-		// id = $(e.target).attr('id');
-		// setCenterCanvas(id);
-	});
-
+// FIXME: currently not used
 	function setCenterCanvas(id)
 	{
 		console.log("the id is: "+id);
@@ -149,8 +145,8 @@ var animateVideo = function(div,vid) {
 
 		var vidHeight = vid.prop('videoHeight'),
 			vidWidth  = vid.prop('videoWidth'),
-			initRatio = 1/3,
-			minRatio  = 1/3,
+			initRatio = 1/4,
+			minRatio  = 1/4,
 			maxRatio  = 1;
 
 		var min_max_size = {

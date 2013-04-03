@@ -40,7 +40,7 @@ a.vm{
 /* SCALE IFRAME */
 .resize_iframe {
   width: 1024px;
-  height: 788px;  /* height = vnc_height/2 + status_bar_height = 384px+20px = 404px */
+  height: 698px;  /* height = vnc_height/2 + status_bar_height = 384px+20px = 404px */
   padding: 0;
   overflow: hidden;
   border: 2px solid green;

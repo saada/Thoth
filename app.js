@@ -14,23 +14,18 @@ console.log('o        o         o      o     +\n');
 @================================================================================
 */
 // db = require('./db/db').db();
+
 // Custom Modules
 var conf   = require('./config');
 var httpServer = require('./webserver');
-var ws = require('./websockify');
-
-// Module dependencies
-var webRTC  = require('webrtc.io');
+var vncWsServer = require('./websockify');
+var rtcServer = require('./rtcserver');
 
 // launch web server
 var webServer = new httpServer(conf.PORTS.WEBSERVER);
-console.log('HTTP server running on port %d...',conf.PORTS.WEBSERVER);
 
-// Launch websockify
-var wsServer = new ws(webServer);	// upgrade http to websocket
-console.log('Websockify server running on port %d...',conf.PORTS.WEBSERVER);
+// Launch vnc websocket server
+var wsServer = new vncWsServer(webServer);	// upgrade http to websocket
 
 // Launch webRTC
-var httpRTC = new httpServer(conf.PORTS.WEBRTC);
-webRTC.listen(httpRTC.server);
-console.log('WebRTC server running on port %d...',conf.PORTS.WEBRTC);
+rtcServer.listen(conf.PORTS.WEBRTC);

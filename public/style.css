@@ -133,6 +133,39 @@ video,canvas {
 	width:100%;*/
 }
 
+#chatbox {
+  position: absolute;
+  right: 20px;
+  bottom: 0px;
+  z-index: 1;
+}
+
+#chatinput {
+  background: none repeat scroll 0 0 #F9F9F9;
+  border: 1px solid #CCCCCC;
+  border-radius: 0px 0px 5px 5px;
+  font: 300 18px/40px 'light','Helvetica Neue',Arial,Helvetica,sans-serif;
+  height: 40px;
+  letter-spacing: 1px;
+  margin-bottom: 0px;
+  padding: 5px 10px;
+  width: 277px;
+}
+
+#messages {
+  overflow: scroll;
+  background: none repeat scroll 0 0 #F9F9F9;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px 5px 0px 0px;
+  font: 300 18px/40px 'light','Helvetica Neue',Arial,Helvetica,sans-serif;
+  height: 400px;
+  letter-spacing: 1px;
+  margin-bottom: 0px;
+  padding: 5px 10px;
+  width: 255px;
+}
+
+
 /*
 @================================================================================
 @= noVNC CSS

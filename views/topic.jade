@@ -82,6 +82,11 @@ block content
 
 	.navbar-fixed-bottom
 	.row
-		//- include vnc
+		.span6.offset10
+			#chatbox
+			#hideShowMessages.btn.btn-inverse toggle chat
+			#messages
+			input#chatinput(type='text', placeholder='chat...')
+
 	script(src='/webrtc.io.js')
 	script(src='/topic.js')

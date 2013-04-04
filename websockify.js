@@ -123,6 +123,8 @@ var Class = function(web) {
     });
     wsServer.on('connection', new_client);
     this.server = wsServer;
+
+    console.log('Websockify server running on port %d...', web.server.address().port);
 };
 
 // exports

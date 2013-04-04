@@ -51,6 +51,8 @@ var Class = function(port){
 	// Start Server
 	server = http.createServer(app);
 	server.listen(port, function(){
+		console.log('HTTP server running on port %d...',port);
+
 		if (process.argv[2] == '-o')  //launch browser
 			require('open')('http://localhost:' + port);
 		else

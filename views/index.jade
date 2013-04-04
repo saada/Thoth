@@ -8,7 +8,7 @@ block navbar
 					span.icon-bar
 					span.icon-bar
 					span.icon-bar
-				a.brand(href='/mobicloud') Mobicloud
+				a.brand(href='/') Mobicloud
 				.nav-collapse.collapse
 				- if (typeof username !== "undefined") 
 					p.navbar-text.pull-right(style="margin:0em 0.5em 0em;")
@@ -21,6 +21,10 @@ block navbar
 							a(href='/mobicloud') MyMobicloud
 						li
 							a(href='/topics') V-LAB
+				- else
+					a.btn.btn-info.pull-right(href="/login") 
+						i.icon-arrow-right.icon-white
+						| Login
 	.span10.offset2.well
 		.row
 			#myCarousel.carousel.slide.span10

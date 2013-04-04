@@ -1,16 +1,18 @@
 extends layout
 
 block content
-	.hero-unit
+	.hero-unit.span12
 		h1 Welcome to Mobicloud
-	.form
-		form
-			label Username:
-			input(id="user", type="text", placeholder="Enter username...")
-			label Password:
-			input(id="password", type="password", placeholder="Enter password...")
-			br
-			a.btn.btn-success.btn-large LOGIN
+		br
+		.form
+			form
+				label Username:
+				input(id="user", type="text", placeholder="Enter username...")
+				label Password:
+				input(id="password", type="password", placeholder="Enter password...")
+				br
+				a.btn.btn-success.btn-large
+					| Login
 
 	script(type="text/javascript")
 		$(function(){

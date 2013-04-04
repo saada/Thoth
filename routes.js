@@ -37,7 +37,7 @@ exports.login = function(req, res){
 		res.redirect('/mobicloud');
 		return;
 	}
-	res.render('login', {title: 'Mobicloud - Login'});
+	res.render('login', {title: 'Thoth - Login'});
 };
 
 exports.loginPost = function(req, res){
@@ -58,22 +58,22 @@ exports.logout = function(req, res){
 };
 
 exports.topic = function(req, res){
-  res.render('topic', {username:req.session.username, title: 'Mobicloud - '+req.params.topic, topic:req.params.topic });
+  res.render('topic', {username:req.session.username, title: 'Thoth - '+req.params.topic, topic:req.params.topic });
 };
 
 exports.topics = function(req, res){
-  res.render('topics', {username:req.session.username, title: 'Mobicloud - Topics' });
+  res.render('topics', {username:req.session.username, title: 'Thoth - Topics' });
 };
 
 exports.mobicloud = function(req, res){
-  res.render('mobicloud', {username:req.session.username, title: 'Mobicloud - MyVM' });
+  res.render('mobicloud', {username:req.session.username, title: 'Thoth - MyVM' });
 };
 
 exports.index = function (req, res) {
 	if (req.session.username)
-		res.render('index', { title: 'Mobicloud - Homepage', username: req.session.username });
+		res.render('index', { title: 'Thoth - Homepage', username: req.session.username });
 	else
-		res.render('index', { title: 'Mobicloud - Homepage'});
+		res.render('index', { title: 'Thoth - Homepage'});
 };
 
 exports.bad = function (req, res){

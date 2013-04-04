@@ -1,5 +1,6 @@
 #Thoth: A Multimedia-enabled Virtual Education Platform with Live Interaction and Collaboration
 
+![THOTH](http://www.crystalinks.com/thothdaynight.jpg "Thoth")
 
 ##Summary
 What is Thoth, what is the overall goal of this project?

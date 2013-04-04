@@ -125,13 +125,13 @@ var count = 0;
 // Takes parent div of video and video element and enables resizable, draggable
 var animateVideo = function(div,vid) {
 	setTimeout(function(){
-		if(count < 500 && vid.prop('videoHeight')  === 0)
+		if(count < 30 && vid.prop('videoHeight')  === 0)
 		{
 			count++;
 			animateVideo(div,vid);	//recursive call
 			return;
 		}
-		else if(count >= 500)	//500*20 = 10000ms = 10s
+		else if(count >= 30)	//60*1000 = 60000ms = 30s
 		{
 			if(vid.is('#myvideo'))
 				alert('Your webcam is taking too long to load...');
@@ -182,7 +182,7 @@ var animateVideo = function(div,vid) {
 			}
 		});
 		div.show(600, 'easeInOutBack');
-	}, 20);
+	}, 1000);
 };
 
 var closeRTC = function(){

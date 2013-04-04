@@ -6,6 +6,17 @@
 
 body{
   padding-top: 5%;
+  background-image:url('http://mobicloud.asu.edu/images/bg.png');
+}
+
+h3{
+  font-size:1.5em; 
+  line-height:1.4em;
+}
+
+h4{
+  font-size:1.2em; 
+  line-height:1.4em;
 }
 
 a.btn{

@@ -1,0 +1,37 @@
+extends layout
+
+block content
+	.hero-unit
+		h1 Welcome to Mobicloud
+	.form
+		form
+			label Username:
+			input(id="user", type="text", placeholder="Enter username...")
+			label Password:
+			input(id="password", type="password", placeholder="Enter password...")
+			br
+			a.btn.btn-success.btn-large LOGIN
+
+	script(type="text/javascript")
+		$(function(){
+			$('#user').focus();
+			$('input').keypress(function (e) {
+				if (e.which == 13) {
+					$('.btn').trigger('click');
+					e.preventDefault();
+				}
+			});
+			$('.btn').click(function(){
+				$.ajax({
+					url: '/login',
+					type: 'POST',
+					dataType: 'json',
+					data: {username: $('#user').val(), password: $('#password').val() },
+					success: function(data, textStatus, xhr) {
+						console.log(data);
+						window.location.href = data;
+					},
+				});
+			});
+		});
+

@@ -32,10 +32,11 @@ var configureExpress = function(app){
 
 	// routes
 	app.get('/', routes.index);
+	app.get('/login', routes.login);
 	app.get('/topics', routes.checkAuth, routes.topics);
 	app.get('/topics/:topic', routes.checkAuth, routes.topic);
 	app.get('/mobicloud', routes.checkAuth, routes.mobicloud);
-	app.post('/login', routes.login);
+	app.post('/login', routes.loginPost);
 	app.get('/logout', routes.logout);
 	app.use(routes.bad);
 };

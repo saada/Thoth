@@ -1,37 +1,80 @@
 extends layout
 
-block content
-	.hero-unit
-		h1 Welcome to Mobicloud
-	.form
-		form
-			label Username:
-			input(id="user", type="text", placeholder="Enter username...")
-			label Password:
-			input(id="password", type="password", placeholder="Enter password...")
-			br
-			a.btn.btn-success.btn-large LOGIN
+block navbar
+	.navbar.navbar-inverse.navbar-fixed-top
+		.navbar-inner
+			.container-fluid
+				button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.brand(href='/mobicloud') Mobicloud
+				.nav-collapse.collapse
+				- if (typeof username !== "undefined") 
+					p.navbar-text.pull-right(style="margin:0em 0.5em 0em;")
+						| Logged in as 
+						a.navbar-link(href='#')=username
+					a.btn.btn-info.pull-right#logoutBtn(href="/logout",style="margin:0.7em 0.5em 1em;") 
+						| Logout
+					ul.nav
+						li.active
+							a(href='/mobicloud') MyMobicloud
+						li
+							a(href='/topics') V-LAB
+	.span10.offset2.well
+		.row
+			#myCarousel.carousel.slide.span10
+				ol.carousel-indicators
+					li.active(data-target='#myCarousel', data-slide-to='0')
+					li(data-target='#myCarousel', data-slide-to='1')
+					li(data-target='#myCarousel', data-slide-to='2')
+				.carousel-inner
+					.active.item 
+						img(src="http://mobicloud.asu.edu/images/slideshow/1.png")
+					.item
+						img(src="http://mobicloud.asu.edu/images/slideshow/2.png")
+					.item
+						img(src="http://mobicloud.asu.edu/images/slideshow/3.png")
+				a.carousel-control.left(href='#myCarousel', data-slide='prev') ‹
+				a.carousel-control.right(href='#myCarousel', data-slide='next') ›
+		.row
+			.span5
+				h3(style="font-size:1.5em; line-height:1.4em;") 
+					| A mobile cloud computing framework supporting various mobile applications 
+					| with security and privacy enhancement integrations.
+			.span4
+				img(src="http://mobicloud.asu.edu/images/mobicloud_map.png")
 
-	script(type="text/javascript")
-		$(function(){
-			$('#user').focus();
-			$('input').keypress(function (e) {
-				if (e.which == 13) {
-					$('.btn').trigger('click');
-					e.preventDefault();
-				}
-			});
-			$('.btn').click(function(){
-				$.ajax({
-					url: '/login',
-					type: 'POST',
-					dataType: 'json',
-					data: {username: $('#user').val(), password: $('#password').val() },
-					success: function(data, textStatus, xhr) {
-						console.log(data);
-						window.location.href = data;
-					},
-				});
-			});
-		});
+		.row
+			.span5
+				h3 Virtual Computation & Network
+				p
+					|MobiCloud takes advanced virtualization technologies and is capable of virtually 
+					| simulating any types of computer networks, providing maximal flexibility and fidelity.
+			.span5
+				h3 Universal Virtual ID
+				p
+					|MobiCloud integrates multiple authentication & authorization solutions from both hardware, 
+					| application and data layers to provide a comprehensive, single sign-on ID management system.
+		.row
+			.span5
+				h3 Multi-Tier SDK
+				p
+					|Loosely-coupled service development and integration model for service discovery, composition, 
+					| publishing, deployment and monitoring.
+			.span5
+				h3 Mobile Social Network
+				p
+					|MobiCloud provides a mobile social network for all the cloud users to communicate with each 
+					| other with attribute-based access control policies.
 
+		.row
+			.span5
+				h3 Web-based Management
+				p
+					|MobiCloud provides a web portal for users to manage their private data and configurations 
+					| for data sharing and service. The web portal can be access any where as long as Internet is available.
+			.span5
+				h3 Flexible Storage Solutions
+				p
+					|High-performance, efficient and network-based storage system for user and system virtual machine hosting.

@@ -1,6 +1,4 @@
-// authentication
-var authenticate = function(user, password){
-	var users = [
+var users = [
 		{username:'larry', password:'larry'},
 		{username:'moody', password:'moody'},
 		{username:'tom', password:'tom'},
@@ -11,6 +9,9 @@ var authenticate = function(user, password){
 		{username:'user3', password:'user3'},
 		{username:'user4', password:'user4'}
 	];
+
+// authentication
+var authenticate = function(user, password){
 	for (var i = 0; i < users.length; i++) {
 		_user = users[i];
 		if(_user.username === user && _user.password === password)
@@ -22,14 +23,24 @@ var authenticate = function(user, password){
 // authorization
 exports.checkAuth = function (req, res, next) {
   if (!req.session.username) {
-    res.send('You are not authorized to view this page! Please <a href="/">Login!</a>');
+    res.send('You are not authorized to view this page! Please <a href="/login">Login!</a>');
   } else {
     next();
   }
 };
 
 // Login
+
 exports.login = function(req, res){
+	if (req.session.username)
+	{
+		res.redirect('/mobicloud');
+		return;
+	}
+	res.render('login', {title: 'Mobicloud - Login'});
+};
+
+exports.loginPost = function(req, res){
 	var post = req.body;
 	var authedUser = authenticate(post.username, post.password);
 	if (authedUser) {
@@ -43,7 +54,7 @@ exports.login = function(req, res){
 exports.logout = function(req, res){
 	delete req.session.username;
 	req.session = null;
-	res.redirect('/');
+	res.redirect('/login');
 };
 
 exports.topic = function(req, res){
@@ -60,11 +71,9 @@ exports.mobicloud = function(req, res){
 
 exports.index = function (req, res) {
 	if (req.session.username)
-	{
-		res.redirect('/mobicloud');
-		return;
-	}
-	res.render('index', { title: 'Mobicloud - Homepage' });
+		res.render('index', { title: 'Mobicloud - Homepage', username: req.session.username });
+	else
+		res.render('index', { title: 'Mobicloud - Homepage'});
 };
 
 exports.bad = function (req, res){

@@ -19,15 +19,40 @@ var vncConnection = require('./vncController');
 var WebSocketServer = require('ws').Server,
     sessionStore, express, wsServer, target_host, target_port;
 
-var targets = {};
+// All available vms
+var VMs = {
+    "user1-vm1":{ip:"10.0.2.166", conns:[]},
+    "user1-vm2":{ip:"10.0.2.136", conns:[]},
+    "user1-vm3":{ip:"10.0.2.165", conns:[]},
+    "user2-vm1":{ip:"10.0.2.174", conns:[]},
+    "user2-vm2":{ip:"10.0.2.173", conns:[]},
+    "user2-vm3":{ip:"10.0.2.175", conns:[]},
+    "user3-vm1":{ip:"10.0.2.167", conns:[]},
+    "user3-vm2":{ip:"10.0.2.169", conns:[]},
+    "user3-vm3":{ip:"10.0.2.168", conns:[]},
+    "user4-vm1":{ip:"10.0.2.171", conns:[]},
+    "user4-vm2":{ip:"10.0.2.170", conns:[]},
+    "user4-vm3":{ip:"10.0.2.172", conns:[]}
+};
 
-authSocket = function(socket){
+removeFromArray = function(arr, obj){
+    index = arr.indexOf(obj);
+    if(index > -1)
+        arr.splice(index, 1);
+};
+
+getSessionUsername = function(socket){
     var reqCookie = socket.upgradeReq.headers.cookie;   // TRY TO LOOK FOR HANDSHAKE INSTEAD
     var parsedCookie = require('cookie').parse(reqCookie);
     var signedCookie = require('connect').utils.parseSignedCookies(parsedCookie,'monkey');
     var json = JSON.parse(signedCookie['connect.sess'].slice(2));
-    var user = json['user'];
-    console.log(user);
+    var username = json['username'];
+    console.log(username);
+    return username;
+};
+
+authSocket = function(socket){
+    var username = getSessionUsername(socket);
     // sessionStore.get(json, function(err, session) {console.log(session);
     //     if (err || !session) console.log('websockify: no found session.', false);
     //     socket.session = session;
@@ -42,61 +67,53 @@ authSocket = function(socket){
 };
 
 // Handle new WebSocket client
-new_client = function(client) {
-    var path = client.upgradeReq.url;
-    var clientAddr = client._socket.remoteAddress,
+new_socket = function(socket) {
+    var path = socket.upgradeReq.url;
+    var socketAddr = socket._socket.remoteAddress,
         log;
     log = function(msg) {
-        console.log(' ' + clientAddr + ': ' + msg);
+        console.log(' ' + socketAddr + ': ' + msg);
     };
     console.log('WebSocket connection');
-    console.log('Version ' + client.protocolVersion + ', subprotocol: ' + client.protocol);
+    console.log('Version ' + socket.protocolVersion + ', subprotocol: ' + socket.protocol);
 
-    if (authSocket(client)) {
+    if (authSocket(socket)) {
         target_port = "5901";
-        target_host = "10.0.2.136";
+        if(VMs[path.substring(1)]){
+            targetVM = VMs[path.substring(1)];
+            target_host = targetVM.ip;
+        }
 
-        // All available vms
-        VMs = {
-            "user1-vm1":"10.0.2.166",
-            "user1-vm2":"10.0.2.136",
-            "user1-vm3":"10.0.2.165",
-            "user2-vm1":"10.0.2.174",
-            "user2-vm2":"10.0.2.173",
-            "user2-vm3":"10.0.2.175",
-            "user3-vm1":"10.0.2.167",
-            "user3-vm2":"10.0.2.169",
-            "user3-vm3":"10.0.2.168",
-            "user4-vm1":"10.0.2.171",
-            "user4-vm2":"10.0.2.170",
-            "user4-vm3":"10.0.2.172"
-        };
+        else {
+            targetVM = VMs["user4-vm3"];
+            target_host = targetVM.ip;
+        }
 
-        target_host = VMs[path.substring(1)];
-        if(!target_host)
-            target_host = VMs["user4-vm3"];
-        targets[client] = new vncConnection(client, target_port, target_host).target;
+        socket.vnc = new vncConnection(socket, target_port, target_host).target;
+        targetVM.conns.push(getSessionUsername(socket));
+        console.log("connected targets: ",targetVM.conns.length);
+        console.log(VMs);
     }
     else
-        client.close();
+        socket.close();
 
-    client.on('close', function(code, reason) {
-        console.log('WebSocket client disconnected: ' + code + ' [' + reason + ']');
-        if(targets[client]){
-            console.log(targets);
-            targets[client].end();
-            delete targets[client];
-            console.log(targets);
+    socket.on('close', function(code, reason) {
+        console.log('WebSocket socket disconnected: ' + code + ' [' + reason + ']');
+        removeFromArray(targetVM.conns, getSessionUsername(socket));
+        if(socket.vnc){
+            socket.vnc.end();
+            delete socket.vnc;
         }
+        console.log("connected targets: ",targetVM.conns.length);
     });
-    client.on('error', function(a) {
-        console.log('WebSocket client error: ' + a);
-        if(targets[client]){
-            console.log(targets);
-            targets[client].end();
-            delete targets[client];
-            console.log(targets);
+    socket.on('error', function(a) {
+        console.log('WebSocket socket error: ' + a);
+        removeFromArray(targetVM.conns, getSessionUsername(socket));
+        if(socket.vnc){
+            socket.vnc.end();
+            delete socket.vnc;
         }
+        console.log("connected targets: ",targetVM.conns.length);
     });
 };
 
@@ -109,7 +126,7 @@ selectProtocol = function(protocols, callback) {
     } else if (plist.indexOf('base64') >= 0) {
         callback(true, 'base64');
     } else {
-        console.log("Client must support 'binary' or 'base64' protocol");
+        console.log("socket must support 'binary' or 'base64' protocol");
         callback(false);
     }
 };
@@ -121,7 +138,7 @@ var Class = function(web) {
         // port:web,
         handleProtocols: selectProtocol
     });
-    wsServer.on('connection', new_client);
+    wsServer.on('connection', new_socket);
     this.server = wsServer;
 
     console.log('Websockify server running on port %d...', web.server.address().port);

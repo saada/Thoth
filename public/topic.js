@@ -86,7 +86,7 @@ var getLocalCamera = function(){
 		localstream = stream;
 		// Create video element
 		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
-		var vid = div.hide().append('<video id="myvideo" autoplay controls src=""></video>').children().first();
+		var vid = div.hide().append('<video id="myvideo" autoplay controls muted="muted" src=""></video>').children().first();
 		centralizeStreamOnClick(vid);
 		// Attach stream
 		rtc.attachStream(localstream, 'myvideo');
@@ -117,13 +117,13 @@ var count = 0;
 // Takes parent div of video and video element and enables resizable, draggable
 var animateVideo = function(div,vid) {
 	setTimeout(function(){
-		if(count < 30 && vid.prop('videoHeight')  === 0)
+		if(count < 60 && vid.prop('videoHeight')  === 0)
 		{
 			count++;
 			animateVideo(div,vid);	//recursive call
 			return;
 		}
-		else if(count >= 30)	//60*1000 = 60000ms = 30s
+		else if(count >= 60)	//60*1000 = 60000ms = 30s
 		{
 			if(vid.is('#myvideo'))
 				alert('Your webcam is taking too long to load...');

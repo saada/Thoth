@@ -14,7 +14,8 @@ block content
 				a.btn.btn-success.btn-large
 					| Login
 
-	script(type="text/javascript")
+block append scripts
+	script
 		$(function(){
 			$('#user').focus();
 			$('input').keypress(function (e) {

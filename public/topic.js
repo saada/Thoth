@@ -52,7 +52,7 @@ $(function(){
 	rtc.on('add remote stream',function(stream, id){
 		console.log('add remote stream');
 		var div = $('.videos').prepend('<div class="video row"></div>').children().first();
-		var vid = div.hide().append('<video id='+id+' class="remotevideo" autoplay controls></video>').children().first();
+		var vid = div.hide().append('<video id="'+id+'" class="remotevideo '+id+'" autoplay controls></video>').children().first();
 
 		centralizeStreamOnClick(vid);
 
@@ -67,15 +67,22 @@ $(function(){
 		console.log('close stream');
 		console.log(data);
 	});
+
 	rtc.on('remove_peer_connected', function(data) {
 		console.log('peer disconnected! socketId:'+data.socketId);
 		// remove video element
-		$('#'+data.socketId).parent().fadeOut(1000,'swing',function() {
-			$(this).remove();
-			$('#'+data.socketId).fadeOut(1000,'swing',function() {
-				$(this).remove();
-			});
-		});
+		$('.'+data.socketId).addClass('animated rotateOutDownLeft');
+
+		setTimeout(function() {
+			$('.'+data.socketId).parent().empty();
+		  $('.video:empty').remove();
+		}, 600);
+		// $('#'+data.socketId).parent().fadeOut(1000,'swing',function() {
+		// 	$(this).remove();
+		// 	$('#'+data.socketId).fadeOut(1000,'swing',function() {
+		// 		$(this).remove();
+		// 	});
+		// });
 
 	});
 });
@@ -100,16 +107,7 @@ var centralizeStreamOnClick = function(element){
 	element.click(function(){
 		var inner = $('.centerStream').children().first();
 		if(! (inner.is('#'+$(this).attr('id'))))
-		{
-			$('.centerStream').html(
-				$(this).clone().css({
-					'max-height':'inherit',
-					'min-height':'inherit',
-					'max-width' :'inherit',
-					'min-width' :'inherit'
-				})
-			);
-		}
+			$('.centerStream').html($(this).clone().addClass('inheriter'));
 	});
 };
 
@@ -173,7 +171,8 @@ var animateVideo = function(div,vid) {
 				ui.item.children().first()[0].play();
 			}
 		});
-		div.show(600, 'easeInOutBack');
+		// div.show(600, 'easeInOutBack');
+		div.show().addClass('animated bounceInLeft');
 	}, 1000);
 };
 
@@ -196,16 +195,7 @@ function scaleIframe(scale)
 
 		'zoom': 1.07/scale,
 
-		'-webkit-transform': 'scale('+scale+')',
-		'-moz-transform': 'scale('+scale+')',
-		'-o-transform': 'scale('+scale+')',
-		'-ms-transform': 'scale('+scale+')',
 		'transform': 'scale('+scale+')',
-
-		'-webkit-transform-origin': '0 0',
-		'-moz-transform-origin': '0 0',
-		'-o-transform-origin': '0 0',
-		'-ms-transform-origin': '0 0',
 		'transform-origin': '0 0'
 	});
 }

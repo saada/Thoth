@@ -6,7 +6,9 @@
 body
 {
   padding-top:5%;
-  background-image:url(http://mobicloud.asu.edu/images/bg.png)
+  background-image:url(http://farm3.staticflickr.com/2477/3573723529_c25bb07e1c_b_d.jpg);
+  background-size:100% auto;
+  background-repeat:no-repeat;
 }
 
 h3
@@ -31,7 +33,17 @@ a.vm
   margin:10px 0
 }
 
-.active
+.inheriter
+{
+  max-height:inherit;
+  min-height:inherit;
+  max-width :inherit;
+  min-width :inherit;
+  width: 100%;
+  height: auto;
+}
+
+.active, .btn:active
 {
   box-shadow:1px 1px 40px rgba(200,200,200,0.5);
 }
@@ -43,7 +55,7 @@ a.vm
   transition : box-shadow 0.3s linear;
 }
 
-.well:hover, .nav > li:hover, .video:hover, .centerStream:hover, .btn:hover
+.well:hover, .nav > li:hover, .video:hover, .centerStream:hover
 {
   box-shadow:8px 8px 80px rgba(0,0,0,0.5);
 }
@@ -89,7 +101,7 @@ a.vm
 footer
 {
   text-align:center;
-  color:#fff
+  color:black;
 }
 
 .centerStream

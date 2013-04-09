@@ -13,22 +13,19 @@ html(lang="en")
 
 			block css
 				//- App Start Icon  
-				link(rel='apple-touch-startup-image', href='/VNC/images/screen_320x460.png')
+				//- link(rel='apple-touch-startup-image', href='/VNC/images/screen_320x460.png')
 				//- For iOS devices set the icon to use if user bookmarks app on their homescreen 
-				link(rel='apple-touch-icon', href='/VNC/images/screen_57x57.png')
+				//- link(rel='apple-touch-icon', href='/VNC/images/screen_57x57.png')
 				//- Bootstrap
 				//- link(href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css", rel="stylesheet")
 				link(href="/vendor/bootstrap/css/bootstrap-cosmo.min.css", rel="stylesheet")
 				link(href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css', rel='stylesheet')
 				//- jQuery UI
 				link(rel="stylesheet", type="text/css", href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css")
+				//- animations
+				link(href="/animate.css", rel="stylesheet")
 				//- Our custom css file
 				link(href="/style.css", rel="stylesheet")
-
-			block scripts
-				script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
-				script(type="text/javascript", src="http://code.jquery.com/ui/1.10.1/jquery-ui.js")
-				script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
 
 	body
 		block navbar
@@ -40,3 +37,13 @@ html(lang="en")
 			hr
 			p ©Thoth - Designed by Mahmoud Saada, Le Xu, Qingyun Li, and Wenxian Yang. 
 			p Mentored by Dr. Dijiang Huang
+
+		block scripts
+			script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+			//- script
+			//- 	// Animate buttons
+			//- 	$(function(){
+			//- 		$('.btn').addClass('animated fadeInRight');
+			//- 	});
+			script(type="text/javascript", src="http://code.jquery.com/ui/1.10.1/jquery-ui.js")
+			script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')

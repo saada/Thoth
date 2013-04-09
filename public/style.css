@@ -3,526 +3,151 @@
 @= WebRTC CSS
 @================================================================================
 */
-
-body{
-  padding-top: 5%;
-  background-image:url('http://mobicloud.asu.edu/images/bg.png');
+body
+{
+  padding-top:5%;
+  background-image:url(http://mobicloud.asu.edu/images/bg.png)
 }
 
-h3{
-  font-size:1.5em; 
-  line-height:1.4em;
+h3
+{
+  font-size:1.5em;
+  line-height:1.4em
 }
 
-h4{
-  font-size:1.2em; 
-  line-height:1.4em;
+h4
+{
+  font-size:1.2em;
+  line-height:1.4em
 }
 
-a.btn{
-  margin: 0 0.5em 0 0.5em;
+a.btn
+{
+  margin:0 .5em
 }
 
-a.vm{
-  margin: 10px 0 10px 0;
+a.vm
+{
+  margin:10px 0
 }
 
-.container{
-  width: 100%;
+.active
+{
+  box-shadow:1px 1px 40px rgba(200,200,200,0.5);
 }
 
-.hero-unit, .form{
-  text-align: center;
+/* Shadows */
+.well, .nav > li:hover, .centerStream, .btn
+{
+  box-shadow:4px 4px 40px rgba(0,0,0,0.5);
+  transition : box-shadow 0.3s linear;
 }
 
-.sidebar-nav{
-  height:100%;
-  /*min-height:100%;*/
+.well:hover, .nav > li:hover, .video:hover, .centerStream:hover, .btn:hover
+{
+  box-shadow:8px 8px 80px rgba(0,0,0,0.5);
 }
 
-.divider-vertical{
-
+.container
+{
+  width:100%
 }
 
-.nav > li:hover{
-  box-shadow: 3px 3px 5px rgba(1,1,1,0.2);
+.hero-unit,.form
+{
+  text-align:center
+}
+
+.sidebar-nav
+{
+  height:100%
 }
 
 /* SCALE IFRAME */
-.resize_iframe {
-  width: 1024px;
-  height: 698px;  /* height = vnc_height/2 + status_bar_height = 384px+20px = 404px */
-  padding: 0;
-  overflow: hidden;
-  border: 2px solid green;
-  max-width: 1024px;
+.resize_iframe
+{
+  width:1024px;
+/* height = vnc_height/2 + status_bar_height = 384px+20px = 404px */
+  height:698px;
+  padding:0;
+  overflow:hidden;
+  max-width:1024px
 }
 
-#vncIframe {
-  width: 1024px;
-  height: 768px;
-  max-width: 1024px;
-  /*border: 1px solid black;*/
+#vncIframe
+{
+  width:1024px;
+  height:768px;
+  max-width:1024px;
+
+  zoom:1.07;
+  transform:scale(0.5);
+  transform-origin:0 0
 }
 
-#vncIframe {
-  zoom: 1.07;
-
-  -webkit-transform: scale(0.5);
-  -moz-transform: scale(0.5);
-  -o-transform: scale(0.5);
-  -ms-transform: scale(0.5);
-  transform: scale(0.5);
-
-  -webkit-transform-origin: 0 0;
-  -moz-transform-origin: 0 0;
-  -o-transform-origin: 0 0;
-  -ms-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
 /* /SCALE IFRAME */
-
-footer{
-  text-align: center;
-  color: white;
+footer
+{
+  text-align:center;
+  color:#fff
 }
 
-.centerStream{
-	text-align:center;
-	border: 10px solid brown;
-	-webkit-box-shadow: 4px 4px 20px rgba(0,0,0,0.6);
-	-moz-box-shadow: 4px 4px 20px rgba(0,0,0,0.6);
-	box-shadow: 4px 4px 20px rgba(0,0,0,0.6);
-	height:inherit;
-	width:inherit;
-	min-height:400px;
-	min-width:100%;
-	max-height:100%;
-	max-width:100%;
-  background-color: white;
+.centerStream
+{
+  text-align:center;
+  border:10px solid #a52a2a;
+  height:inherit;
+  width:inherit;
+  min-height:400px;
+  min-width:100%;
+  max-height:100%;
+  max-width:100%;
+  background-color:#fff
 }
 
-video,canvas {
-	height:inherit;
-	width:inherit;
-    position:relative;
-    overflow:hidden;
-}
-
-.video{
-	position:relative;
-	/*border: 5px solid red;*/
-	overflow: visible;
-/*   -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  -o-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-*/
-	/* Apply Shadow */
-	-webkit-box-shadow: 2px 2px 50px rgba(0,0,0,0.6);
-	-moz-box-shadow: 2px 2px 50px rgba(0,0,0,0.6);
-	box-shadow: 2px 2px 50px rgba(0,0,0,0.6);
-}
-
-.videos {
-/*	border: 1px solid #dedede;
-	-webkit-columns:  4;
-	-moz-columns:  4;
-	columns:  4;
-	height:100%;
-	width:100%;*/
-}
-
-#chatbox {
-  position: fixed;
-  right: 20px;
-  bottom: 0px;
-  z-index: 1;
-}
-
-#chatinput {
-  background: none repeat scroll 0 0 #F9F9F9;
-  border: 1px solid #CCCCCC;
-  /*border-radius: 0px 0px 5px 5px;*/
-  font: 300 18px/40px 'light','Helvetica Neue',Arial,Helvetica,sans-serif;
-  height: 40px;
-  letter-spacing: 1px;
-  margin-bottom: 0px;
-  padding: 5px 10px;
-  /*width: 100%;*/
-}
-
-#messages {
-  overflow: scroll;
-  background: none repeat scroll 0 0 #F9F9F9;
-  border: 1px solid #CCCCCC;
-  /*border-radius: 5px 5px 0px 0px;*/
-  font: 300 18px/40px 'light','Helvetica Neue',Arial,Helvetica,sans-serif;
-  height: 200px;
-  letter-spacing: 1px;
-  margin-bottom: 0px;
-  padding: 5px 10px;
-  display:none;
-  /*width: 100%;*/
-}
-
-
-/*
-@================================================================================
-@= noVNC CSS
-@================================================================================
-*/
-#noVNC_controls ul {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-#noVNC_controls li {
-  padding-bottom:8px;
-}
-
-#noVNC_host {
-  width:150px;
-}
-#noVNC_port {
-  width: 80px;
-}
-#noVNC_password {
-  width: 150px;
-}
-#noVNC_encrypt {
-}
-#noVNC_connectTimeout {
-  width: 30px;
-}
-#noVNC_path {
-  width: 100px;
-}
-#noVNC_connect_button {
-  width: 110px;
-  float:right;
-}
-
-
-#noVNC_view_drag_button {
-  display: none;
-}
-#sendCtrlAltDelButton {
-  display: none;
-}
-#noVNC_mobile_buttons {
-  display: none;
-}
-
-.noVNC-buttons-left {
-  float: left;
-  padding-left:10px;
-  padding-top:4px;
-}
-
-.noVNC-buttons-right {
-  float:right;
-  right: 0px;
-  padding-right:10px;
-  padding-top:4px;
-}
-
-#noVNC_status_bar {
-  margin-top: 0px;
-  padding: 0px;
-}
-
-#noVNC_status_bar div {
-  font-size: 12px;
-  padding-top: 4px;
-  width:100%;
-}
-
-#noVNC_status {
-  height:20px;
-  text-align: center;
-}
-#noVNC_settings_menu {
-  margin: 3px;
-  text-align: left;
-}
-#noVNC_settings_menu ul {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-#noVNC_apply {
-  float:right;
-}
-
-.noVNC_status_normal {
-  background: #eee;
-}
-.noVNC_status_error {
-  background: #f44;
-}
-.noVNC_status_warn {
-  background: #ff4;
-}
-
-/* Do not set width/height for VNC_screen or VNC_canvas or incorrect
- * scaling will occur. Canvas resizes to remote VNC settings */
-#noVNC_screen_pad {
-  margin: 0px;
-  padding: 0px;
-  height: 44px;
-}
-#noVNC_screen {
-  text-align: center;
-  display: table;
-  width:100%;
-  height:100%;
-  background-color:#313131;
-  border-bottom-right-radius: 800px 600px;
-  /*border-top-left-radius: 800px 600px;*/
-}
-
-#noVNC_container, #noVNC_canvas {
-  margin: 0px;
-  padding: 0px;
-}
-
-#noVNC_canvas {
-  left: 0px;
-}
-
-#VNC_clipboard_clear_button {
-  float:right;
-}
-#VNC_clipboard_text {
-  font-size: 11px;
-}
-
-#noVNC_clipboard_clear_button {
-  float:right;
-}
-
-/*Bubble contents divs*/
-#noVNC_settings {
-  display:none;
-  margin-top:77px;
-  right:20px;
-  position:fixed;
-}
-
-#noVNC_controls {
-  display:none;
-  margin-top:77px;
-  right:12px;
-  position:fixed;
-}
-#noVNC_controls.top:after  {
-  right:15px;
-}
-
-#noVNC_description {
-  display:none;
-  position:fixed;
-
-  margin-top:77px;
-  right:20px;
-  left:20px;
-  padding:15px;
-  color:#000;
-  background:#eee; /* default background for browsers without gradient support */
-
-  border:2px solid #E0E0E0;
-  -webkit-border-radius:10px;
-  -moz-border-radius:10px;
-  border-radius:10px;
-}
-
-#noVNC_clipboard {
-  display:none;
-  margin-top:77px;
-  right:30px;
-  position:fixed;
-}
-#noVNC_clipboard.top:after {
-  right:85px;
-}
-
-#keyboardinput {
-  width:1px;
-  height:1px;
-  background-color:#fff;
-  color:#fff;
-  border:0;
-  position: relative;
-  left: -40px;
-  z-index: -1;
-}
-
-.noVNC_status_warn {
-  background-color:yellow;
-}
-
-/*
- * Advanced Styling
- */
-
-/* Control bar */
-#noVNC-control-bar {
-  position:fixed;
-  background: #b2bdcd; /* Old browsers */
-  background: -moz-linear-gradient(top, #b2bdcd 0%, #899cb3 49%, #7e93af 51%, #6e84a3 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b2bdcd), color-stop(49%,#899cb3), color-stop(51%,#7e93af), color-stop(100%,#6e84a3)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* IE10+ */
-  background: linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* W3C */
-
-  display:block;
-  height:44px;
-  left:0;
-  top:0;
-  width:100%;
-  z-index:200;
-}
-
-.noVNC_status_button {
-  padding: 4px 4px;
-  vertical-align: middle;
-  border:1px solid #869dbc;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  background: #b2bdcd; /* Old browsers */
-  background: -moz-linear-gradient(top, #b2bdcd 0%, #899cb3 49%, #7e93af 51%, #6e84a3 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b2bdcd), color-stop(49%,#899cb3), color-stop(51%,#7e93af), color-stop(100%,#6e84a3)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* IE10+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2bdcd', endColorstr='#6e84a3',GradientType=0 ); /* IE6-9 */
-  background: linear-gradient(top, #b2bdcd 0%,#899cb3 49%,#7e93af 51%,#6e84a3 100%); /* W3C */
-  /*box-shadow:inset 0.4px 0.4px 0.4px #000000;*/
-}
-
-.noVNC_status_button_selected {
-  padding: 4px 4px;
-  vertical-align: middle;
-  border:1px solid #4366a9;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  background: #779ced; /* Old browsers */
-  background: -moz-linear-gradient(top, #779ced 0%, #3970e0 49%, #2160dd 51%, #2463df 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#779ced), color-stop(49%,#3970e0), color-stop(51%,#2160dd), color-stop(100%,#2463df)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #779ced 0%,#3970e0 49%,#2160dd 51%,#2463df 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #779ced 0%,#3970e0 49%,#2160dd 51%,#2463df 100%); /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #779ced 0%,#3970e0 49%,#2160dd 51%,#2463df 100%); /* IE10+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#779ced', endColorstr='#2463df',GradientType=0 ); /* IE6-9 */
-  background: linear-gradient(top, #779ced 0%,#3970e0 49%,#2160dd 51%,#2463df 100%); /* W3C */
- /*box-shadow:inset 0.4px 0.4px 0.4px #000000;*/
-}
-
-
-/*Settings Bubble*/
-.triangle-right {
+video,canvas
+{
+  height:inherit;
+  width:inherit;
   position:relative;
-  padding:15px;
-  margin:1em 0 3em;
-  color:#fff;
-  background:#fff; /* default background for browsers without gradient support */
-  /* css3 */
-  /*background:-webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
-  background:-moz-linear-gradient(#2e88c4, #075698);
-  background:-o-linear-gradient(#2e88c4, #075698);
-  background:linear-gradient(#2e88c4, #075698);*/
-  -webkit-border-radius:10px;
-  -moz-border-radius:10px;
-  border-radius:10px;
-  color:#000;
-  border:2px solid #E0E0E0;
+  overflow:hidden
 }
 
-.triangle-right.top:after {
-  border-color: transparent #E0E0E0;
-  border-width: 20px 20px 0 0;
-  bottom: auto;
-  left: auto;
-  right: 50px;
-  top: -20px;
+.video
+{
+  position:relative;
+  overflow:visible;
 }
 
-.triangle-right:after {
-  content:"";
-  position:absolute;
-  bottom:-20px; /* value = - border-top-width - border-bottom-width */
-  left:50px; /* controls horizontal position */
-  border-width:20px 0 0 20px; /* vary these values to change the angle of the vertex */
-  border-style:solid;
-  border-color:#E0E0E0 transparent;
-  /* reduce the damage in FF3.0 */
-  display:block;
-  width:0;
+#chatbox
+{
+  position:fixed;
+  right:20px;
+  bottom:0;
+  z-index:1
 }
 
-.triangle-right.top:after {
-  top:-40px; /* value = - border-top-width - border-bottom-width */
-  right:50px; /* controls horizontal position */
-  bottom:auto;
-  left:auto;
-  border-width:40px 40px 0 0; /* vary these values to change the angle of the vertex */
-  border-color:transparent #E0E0E0;
+#chatinput
+{
+  background:none repeat scroll 0 0 #F9F9F9;
+  border:1px solid #CCC;
+/*border-radius: 0px 0px 5px 5px;*/
+  font:300 18px/40px light,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  height:40px;
+  letter-spacing:1px;
+  margin-bottom:0;
+  padding:5px 10px
 }
 
-/* ----------------------------------------
- * Media sizing
- * ----------------------------------------
- */
-
-
-.noVNC_status_button {
-  font-size: 12px;
-}
-
-#noVNC_clipboard_text {
-  width: 500px;
-}
-
-#noVNC_logo {
-  font-size: 180px;
-}
-
-@media screen and (min-width: 481px) and (max-width: 640px) {
-  .noVNC_status_button {
-    font-size: 10px;
-  }
-  #noVNC_clipboard_text {
-    width: 410px;
-  }
-  #noVNC_logo {
-    font-size: 150px;
-  }
-}
-
-@media screen and (min-width: 321px) and (max-width: 480px) {
-  .noVNC_status_button {
-    font-size: 10px;
-  }
-  #noVNC_clipboard_text {
-    width: 250px;
-  }
-  #noVNC_logo {
-    font-size: 110px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .noVNC_status_button {
-    font-size: 9px;
-  }
-  #noVNC_clipboard_text {
-    width: 220px;
-  }
-  #noVNC_logo {
-    font-size: 90px;
-  }
+#messages
+{
+  overflow:scroll;
+  background:none repeat scroll 0 0 #F9F9F9;
+  border:1px solid #CCC;
+  font:300 18px/40px light,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  height:200px;
+  letter-spacing:1px;
+  margin-bottom:0;
+  padding:5px 10px;
+  display:none
 }

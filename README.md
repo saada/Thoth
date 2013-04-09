@@ -5,6 +5,10 @@
 ##Summary
 What is Thoth, what is the overall goal of this project?
 
+##What does 'Thoth' mean?
+Since I'm from Egypt, the team decided to pick something related to my background. Le proposed Thoth and we liked it.  
+In Ancient Egypt, Thoth was the name of the mythical God of Knowledge. The name also rhymes with the word 'thought', think, **Thoth!**
+
 ##What problems are you intending to solve?
 
 Existing remote education platforms usually allow online students to watch a pre-recorded lecture, which discourages students from interacting with the instructor and other peers. 
@@ -80,3 +84,11 @@ Video demo:
 Figure 1: Web-based remote desktop sharing and control via VNC
 Figure 2: Video Conference
 
+
+##Current stage:
+1) We have a couple of features in the beta stage. We currently have our own cloud server that we maintain on campus.
+We are now able to have multiple users in a conference with audio and video. We can also give users the ability to control virtual machine desktops from their browser simultaneously. For example, you can have eight people controlling the same desktop. This is of course not a common use case, but we wanted just a proof of concept. The real advantage to this would be to share this remote desktop screen with others with access control. That is what we are currently working on. We want to allow the users to "share" control with others on demand.
+
+2) Among other things we are working on is a graph web application that users can design their virtual networks on. Users can draw and design virtual resources, networks, and physically create them on thee cloud. We hope to have this experience to be shared a-la Google Doc; a collaborative application.
+
+The combination of #1 and #2 is our goal to release this app for students at ASU for this coming Fall semester 2013.

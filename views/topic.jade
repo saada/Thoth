@@ -49,7 +49,7 @@ block content
 	.row-fluid
 			.span2
 				#navbar.well.sidebar-nav
-					h2(style="text-align:center") Webcams
+					h4(style="text-align:center") Webcams
 					hr
 					.videos.offset2
 
@@ -74,19 +74,16 @@ block content
 						i.icon-hdd.icon-white
 						| VM3
 
-	.alert.alert-warning.span4
-		a.close(data-dismiss='alert') ×
-		strong Did you know?
-		|  You can resize components from their bottom right corners!
-	br
+	//- .alert.alert-warning.span4
+	//- 	a.close(data-dismiss='alert') ×
+	//- 	strong Did you know?
+	//- 	|  You can resize components from their bottom right corners!
+	//- br
 
 	.navbar-fixed-bottom
-	.row
-		.span6.offset10
-			#chatbox
-			#hideShowMessages.btn.btn-inverse toggle chat
-			#messages
-			input#chatinput(type='text', placeholder='chat...')
-
+	#chatbox
+		#hideShowMessages.btn.btn-warning toggle chat
+		#messages
+		input#chatinput(type='text', placeholder='chat...')
 	script(src='/webrtc.io.js')
 	script(src='/topic.js')

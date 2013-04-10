@@ -39,8 +39,8 @@ block navbar
 						img(src="/images/2.png")
 					.item
 						img(src="/images/3.png")
-				a.carousel-control.left(href='#myCarousel', data-slide='prev') ‹
-				a.carousel-control.right(href='#myCarousel', data-slide='next') ›
+				//- a.carousel-control.left(href='#myCarousel', data-slide='prev') ‹
+				//- a.carousel-control.right(href='#myCarousel', data-slide='next') ›
 		.row
 			.span5
 				h3(style="font-size:1.5em; line-height:1.4em;") 
@@ -82,3 +82,9 @@ block navbar
 				h3 Flexible Storage Solutions
 				p
 					|High-performance, efficient and network-based storage system for user and system virtual machine hosting.
+	
+block append scripts
+	script
+		$('.carousel').carousel({
+			interval: 2000
+		});

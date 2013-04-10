@@ -13,7 +13,7 @@ $(function() {
 		url: "lab1.xml",
 		dataType: "xml",
 		success: function(xml) {
-			initLoad(xmlToString(xml));
+			initLoad(xml);
 			stopLoadingScreen();
 			// debugger;
 		}

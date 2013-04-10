@@ -703,13 +703,13 @@ function initLoad(xml)
 	if(typeof(GLOBAL_GRAPH) != 'undefined')
 	{
 		GLOBAL_GRAPH.getModel().beginUpdate();
-		var doc;
-		if(xml === null)
-			doc = mxUtils.parseXml(getGraph('<?php echo $_GET["lab_id"]; ?>'));
-		else
-			doc = mxUtils.parseXml(xml);
-		var dec = new mxCodec(doc);
-		dec.decode(doc.documentElement, GLOBAL_GRAPH.getModel());
+		// var doc;
+		// if(xml === null)
+		// 	doc = mxUtils.parseXml(getGraph('<?php echo $_GET["lab_id"]; ?>'));
+		// else
+		// 	doc = mxUtils.parseXml(xml);
+		var dec = new mxCodec(xml);
+		dec.decode(xml.documentElement, GLOBAL_GRAPH.getModel());
 		GLOBAL_GRAPH.getModel().endUpdate();
 
 		//debugging calls

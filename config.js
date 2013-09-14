@@ -7,6 +7,6 @@
 module.exports = {
 	PORTS:{
 		WEBSERVER : 80,
-		WEBRTC : 4000
+		WEBRTC : 3000
 	}
 };

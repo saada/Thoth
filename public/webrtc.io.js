@@ -77,17 +77,20 @@ if (navigator.webkitGetUserMedia) {
 
   // Holds the STUN/ICE server to use for PeerConnections.
   rtc.SERVER = function() {
-    if (navigator.mozGetUserMedia) {
-      return {
-        "iceServers": [{
-          "url": "stun:23.21.150.121"
-        }]
-      };
-    }
+    // if (navigator.mozGetUserMedia) {
+    //   return {
+    //     "iceServers": [{
+    //       "url": "stun:23.21.150.121"
+    //     }]
+    //   };
+    // }
     return {
       "iceServers": [{
-        "url": "stun:stun.l.google.com:19302"
-      }]
+        "url": "stun:vlab.asu.edu:3478"
+      },{
+        "url": "turn:vlab.asu.edu:3478"
+      }
+      ]
     };
   };
 

@@ -4,9 +4,14 @@
 @================================================================================
 */
 var localstream = null;
+var wsPort = 3000;
+var url = 'ws://vlab.asu.edu';
+// var url = 'ws://'+window.location.host.split(':')[0]+':'+wsPort;
+var room = 'thothroom';
+// var room = window.location.href.split('/').slice(-1)[0].split('#')[0];
 // Start Web socket connection
-rtc.connect('ws://'+window.location.host.split(':')[0]+':4000', window.location.href.split('/').slice(-1)[0].split('#')[0]);
-console.log('Connecting via WebRTC to ws://'+window.location.host.split(':')[0]+':4000 in room: '+window.location.href.split('/').slice(-1)[0].split('#')[0]);
+rtc.connect(url+':'+wsPort, room);
+console.log('Connecting via WebRTC to '+url+':'+wsPort+' in room: '+room);
 
 $(function(){
 	/*

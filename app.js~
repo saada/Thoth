@@ -28,4 +28,4 @@ var rtcServer = require('./rtcserver');
 //var wsServer = new vncWsServer(webServer);	// upgrade http to websocket
 
 // Launch webRTC
-rtcServer.listen(3000);
+rtcServer.listen(conf.PORTS.WEBRTC);

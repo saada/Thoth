@@ -17,12 +17,12 @@ console.log('o        o         o      o     +\n');
 
 // Custom Modules
 var conf   = require('./config');
-// var httpServer = require('./webserver');
+var httpServer = require('./webserver');
 //var vncWsServer = require('./websockify');
 var rtcServer = require('./rtcserver');
 
 // launch web server
-// var webServer = new httpServer(conf.PORTS.WEBSERVER);
+var webServer = new httpServer(conf.PORTS.WEBSERVER);
 
 // Launch vnc websocket server
 //var wsServer = new vncWsServer(webServer);	// upgrade http to websocket

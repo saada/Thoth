@@ -84,12 +84,15 @@ if (navigator.webkitGetUserMedia) {
     //     }]
     //   };
     // }
+    var url = 'vlab.asu.edu:3478';
+    console.log('STUN/TURN server: '+url);
     return {
-      "iceServers": [{
-        "url": "stun:vlab.asu.edu:3478"
-      },{
-        "url": "turn:vlab.asu.edu:3478"
-      }
+      "iceServers": [
+        {
+          "url": 'stun:'+url
+        },{
+          "url": 'turn:'+url
+        }
       ]
     };
   };
